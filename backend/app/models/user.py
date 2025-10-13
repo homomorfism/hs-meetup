@@ -44,7 +44,7 @@ class User(Base):
 
     # Relationships
     interests = relationship("Category", secondary="user_interests", back_populates="interested_users")
-    organized_groups = relationship("Group", back_populates="organizer", foreign_keys="Group.organizer_id")
-    organized_events = relationship("Event", back_populates="organizer", foreign_keys="Event.organizer_id")
+    organized_groups = relationship("Group", back_populates="organizer", foreign_keys="Group.organizer_id", cascade="all, delete-orphan")
+    organized_events = relationship("Event", back_populates="organizer", foreign_keys="Event.organizer_id", cascade="all, delete-orphan")
     attended_events = relationship("Event", secondary=event_attendees, back_populates="attendees")
     joined_groups = relationship("Group", secondary=group_members, back_populates="members")

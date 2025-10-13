@@ -14,6 +14,14 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     password: str
 
+    @field_validator('password')
+    @classmethod
+    def validate_password_length(cls, v: str) -> str:
+        """Validate password is at least 4 characters long"""
+        if len(v) < 4:
+            raise ValueError('Password must be at least 4 characters long')
+        return v
+
 
 class UserUpdate(BaseModel):
     name: Optional[str] = None

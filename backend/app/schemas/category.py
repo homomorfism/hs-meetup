@@ -4,6 +4,7 @@ from pydantic import BaseModel
 class CategoryBase(BaseModel):
     name: str
     icon: str | None = None
+    color: str | None = None
     slug: str
 
 

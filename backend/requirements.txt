@@ -11,3 +11,10 @@ pydantic
 pydantic-settings
 pyrootutils
 bcrypt<4
+
+# Testing dependencies
+pytest
+pytest-cov
+pytest-asyncio
+httpx
+faker

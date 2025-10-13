@@ -9,6 +9,7 @@ class Category(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True, nullable=False, index=True)
     icon = Column(String)
+    color = Column(String)
     slug = Column(String, unique=True, nullable=False, index=True)
 
     # Relationships
