@@ -1,44 +1,45 @@
-import sys
 import json
 from datetime import datetime
+from pathlib import Path
+import traceback
 from sqlalchemy.orm import Session
-from app.database import SessionLocal, engine
-from app.models import Base, User, Category, Group, Event, user_interests
-from app.core.security import get_password_hash
 
-# Import frontend data
-sys.path.append('../frontend/src')
+from .database import SessionLocal, engine
+from .models import User, Category, Group, Event, user_interests
+from .core.security import get_password_hash
+from pyrootutils import find_root
+from .database import Base
+
+INITIAL_DATA_DIR = find_root() / "backend" / "initial_data"
+
+def load_json_file(filename: str) -> list:
+    """Load JSON data from initial_data directory"""
+    filepath = INITIAL_DATA_DIR / filename
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        print(f"Warning: {filename} not found in {INITIAL_DATA_DIR}")
+        return []
+    except json.JSONDecodeError as e:
+        print(f"Error parsing {filename}: {e}")
+        return []
 
 def seed_database():
-    # Create tables
+    # Drop all tables and recreate them to ensure schema is up to date
+    print("Dropping existing tables...")
+    Base.metadata.drop_all(bind=engine)
+    print("Creating tables with new schema...")
     Base.metadata.create_all(bind=engine)
 
     db = SessionLocal()
 
     try:
-        # Check if already seeded
-        if db.query(User).count() > 0:
-            print("Database already seeded!")
-            return
 
         print("Seeding database...")
 
         # Seed categories
-        categories_data = [
-            {"id": 1, "name": "Technology", "icon": "💻", "slug": "technology"},
-            {"id": 2, "name": "Arts & Culture", "icon": "🎨", "slug": "arts-culture"},
-            {"id": 3, "name": "Sports & Fitness", "icon": "⚽", "slug": "sports-fitness"},
-            {"id": 4, "name": "Food & Drink", "icon": "🍕", "slug": "food-drink"},
-            {"id": 5, "name": "Social Activities", "icon": "🎉", "slug": "social-activities"},
-            {"id": 6, "name": "Travel & Outdoor", "icon": "🏔️", "slug": "travel-outdoor"},
-            {"id": 7, "name": "Music", "icon": "🎵", "slug": "music"},
-            {"id": 8, "name": "Books & Writing", "icon": "📚", "slug": "books-writing"},
-            {"id": 9, "name": "Film & Photography", "icon": "📷", "slug": "film-photography"},
-            {"id": 10, "name": "Games", "icon": "🎮", "slug": "games"},
-            {"id": 11, "name": "Health & Wellness", "icon": "🧘", "slug": "health-wellness"},
-            {"id": 12, "name": "Business & Career", "icon": "💼", "slug": "business-career"},
-        ]
-
+        categories_data = load_json_file("categories.json")
         for cat_data in categories_data:
             category = Category(**cat_data)
             db.add(category)
@@ -46,69 +47,86 @@ def seed_database():
         db.commit()
         print(f"✓ Seeded {len(categories_data)} categories")
 
-        # Seed users (with password: password123)
-        default_password = get_password_hash("password123")
+        users_data = load_json_file("users.json")
 
-        # Add test users
-        test_users = [
-            {"id": 1, "email": "test1@example.com", "name": "Test User 1", "location": "San Francisco, CA"},
-            {"id": 2, "email": "test2@example.com", "name": "Test User 2", "location": "New York, NY"},
-            {"id": 3, "email": "test3@example.com", "name": "Test User 3", "location": "Los Angeles, CA"},
-            {"id": 4, "email": "test4@example.com", "name": "Test User 4", "location": "Chicago, IL"},
-            {"id": 5, "email": "test5@example.com", "name": "Test User 5", "location": "Seattle, WA"},
-        ]
-
-        for user_data in test_users:
-            user = User(
-                **user_data,
-                password_hash=default_password,
-                bio=f"Test user account for {user_data['name']}",
-                avatar=f"https://i.pravatar.cc/150?u={user_data['id']}",
-                member_since=datetime(2024, 1, 1)
-            )
-            db.add(user)
-
-        # Seed remaining users from frontend (id 6-20)
-        users_data = [
-            {"id": 6, "name": "James Wilson", "email": "james.wilson@example.com", "bio": "Board game enthusiast and event organizer.", "location": "Chicago, IL", "avatar": "https://i.pravatar.cc/150?img=14", "member_since": "2019-04-18"},
-            {"id": 7, "name": "Lisa Anderson", "email": "lisa.anderson@example.com", "bio": "Book lover and aspiring author. Let's discuss great literature!", "location": "Boston, MA", "avatar": "https://i.pravatar.cc/150?img=10", "member_since": "2021-05-30"},
-            {"id": 8, "name": "Robert Taylor", "email": "robert.taylor@example.com", "bio": "Photographer and travel blogger exploring the world one city at a time.", "location": "Portland, OR", "avatar": "https://i.pravatar.cc/150?img=15", "member_since": "2020-02-14"},
-            {"id": 9, "name": "Amanda White", "email": "amanda.white@example.com", "bio": "Music producer and DJ. Electronic beats are my life.", "location": "Miami, FL", "avatar": "https://i.pravatar.cc/150?img=20", "member_since": "2019-09-08"},
-            {"id": 10, "name": "Chris Brown", "email": "chris.brown@example.com", "bio": "Entrepreneur and startup mentor. Happy to share my experience!", "location": "San Francisco, CA", "avatar": "https://i.pravatar.cc/150?img=33", "member_since": "2018-07-12"},
-            {"id": 11, "name": "Maria Garcia", "email": "maria.garcia@example.com", "bio": "Yoga teacher and meditation guide finding peace in chaos.", "location": "San Diego, CA", "avatar": "https://i.pravatar.cc/150?img=23", "member_since": "2021-03-25"},
-            {"id": 12, "name": "Kevin Lee", "email": "kevin.lee@example.com", "bio": "Gaming streamer and esports enthusiast.", "location": "Denver, CO", "avatar": "https://i.pravatar.cc/150?img=51", "member_since": "2020-10-15"},
-            {"id": 13, "name": "Sophie Turner", "email": "sophie.turner@example.com", "bio": "Wine enthusiast and sommelier in training.", "location": "Napa, CA", "avatar": "https://i.pravatar.cc/150?img=24", "member_since": "2019-12-01"},
-            {"id": 14, "name": "Daniel Murphy", "email": "daniel.murphy@example.com", "bio": "Rock climbing instructor and outdoor adventure guide.", "location": "Boulder, CO", "avatar": "https://i.pravatar.cc/150?img=52", "member_since": "2020-06-08"},
-            {"id": 15, "name": "Rachel Green", "email": "rachel.green@example.com", "bio": "Fashion designer and art gallery curator.", "location": "New York, NY", "avatar": "https://i.pravatar.cc/150?img=27", "member_since": "2021-07-19"},
-            {"id": 16, "name": "Tom Harris", "email": "tom.harris@example.com", "bio": "Film critic and indie movie lover.", "location": "Los Angeles, CA", "avatar": "https://i.pravatar.cc/150?img=53", "member_since": "2019-02-28"},
-            {"id": 17, "name": "Nicole Davis", "email": "nicole.davis@example.com", "bio": "Marathon organizer and running coach.", "location": "Chicago, IL", "avatar": "https://i.pravatar.cc/150?img=29", "member_since": "2020-04-11"},
-            {"id": 18, "name": "Alex Thompson", "email": "alex.thompson@example.com", "bio": "Jazz musician and music theory teacher.", "location": "New Orleans, LA", "avatar": "https://i.pravatar.cc/150?img=54", "member_since": "2018-09-22"},
-            {"id": 19, "name": "Laura Mitchell", "email": "laura.mitchell@example.com", "bio": "Food blogger and cooking class instructor.", "location": "Portland, OR", "avatar": "https://i.pravatar.cc/150?img=32", "member_since": "2021-08-05"},
-            {"id": 20, "name": "Ryan Cooper", "email": "ryan.cooper@example.com", "bio": "AI researcher and tech conference speaker.", "location": "Seattle, WA", "avatar": "https://i.pravatar.cc/150?img=56", "member_since": "2019-11-17"},
-        ]
+        # Create a mapping of category names to category objects
+        categories_by_name = {cat.name: cat for cat in db.query(Category).all()}
 
         for user_data in users_data:
+            # Extract interests (category names)
+            interests = user_data.pop("interests", [])
+            
+            # Remove password field and use hashed password
+            password = user_data.pop("password")
+            # Parse member_since date
             member_since = datetime.fromisoformat(user_data.pop("member_since"))
+            
             user = User(
                 **user_data,
-                password_hash=default_password,
+                password_hash=get_password_hash(password),
                 member_since=member_since
             )
+                
+            # Add user interests
+            for interest_name in interests:
+                if interest_name in categories_by_name:
+                    user.interests.append(categories_by_name[interest_name])
+
             db.add(user)
 
         db.commit()
-        print(f"✓ Seeded {len(test_users) + len(users_data)} users (password: password123)")
+        print(f"✓ Seeded {len(users_data)} users (password: password123)")
+
+        # Seed groups
+        groups_data = load_json_file("groups.json")
+        for group_data in groups_data:
+            # Parse founded date
+            founded = datetime.fromisoformat(group_data.pop("founded"))
+            # Rename 'organizer' to 'organizer_id'
+            if "organizer" in group_data:
+                group_data["organizer_id"] = group_data.pop("organizer")
+
+            group = Group(
+                **group_data,
+                founded=founded
+            )
+            db.add(group)
+
+        db.commit()
+        print(f"✓ Seeded {len(groups_data)} groups")
+
+        # Seed events
+        events_data = load_json_file("events.json")
+        for event_data in events_data:
+            # Parse date
+            event_date = datetime.fromisoformat(event_data.pop("date"))
+            # Rename fields to match model
+            if "attendees" in event_data:
+                event_data["attendees_count"] = event_data.pop("attendees")
+            if "isOnline" in event_data:
+                event_data["is_online"] = event_data.pop("isOnline")
+            if "locationCity" in event_data:
+                event_data["location_city"] = event_data.pop("locationCity")
+
+            event = Event(
+                **event_data,
+                date=event_date
+            )
+            db.add(event)
+
+        db.commit()
+        print(f"✓ Seeded {len(events_data)} events")
 
         print("\n✅ Database seeded successfully!")
-        print("\nTest User Credentials:")
-        print("Email: test1@example.com | Password: password123")
-        print("Email: test2@example.com | Password: password123")
-        print("Email: test3@example.com | Password: password123")
-        print("Email: test4@example.com | Password: password123")
-        print("Email: test5@example.com | Password: password123")
+        print("\nSample User Credentials (all users have same password):")
+        print("Email: sarah.johnson@example.com | Password: password123")
+        print("Email: michael.chen@example.com | Password: password123")
+        print("Email: emily.rodriguez@example.com | Password: password123")
+        print("...and more (check users.json for all users)")
 
     except Exception as e:
         print(f"Error seeding database: {e}")
+        print(traceback.format_exc())
         db.rollback()
     finally:
         db.close()

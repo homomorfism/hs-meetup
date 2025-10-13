@@ -1,0 +1,222 @@
+[
+  {
+    "id": 1,
+    "name": "Sarah Johnson",
+    "email": "sarah.johnson@example.com",
+    "password": "password123",
+    "bio": "Tech enthusiast and community organizer. Love bringing people together!",
+    "location": "San Francisco, CA",
+    "interests": ["Technology", "Social Activities", "Business & Career"],
+    "member_since": "2020-03-15",
+    "avatar": "https://i.pravatar.cc/150?img=1"
+  },
+  {
+    "id": 2,
+    "name": "Michael Chen",
+    "email": "michael.chen@example.com",
+    "password": "password123",
+    "bio": "Software developer by day, hiking enthusiast by weekend.",
+    "location": "Seattle, WA",
+    "interests": ["Technology", "Travel & Outdoor", "Film & Photography"],
+    "member_since": "2019-06-20",
+    "avatar": "https://i.pravatar.cc/150?img=12"
+  },
+  {
+    "id": 3,
+    "name": "Emily Rodriguez",
+    "email": "emily.rodriguez@example.com",
+    "password": "password123",
+    "bio": "Artist and yoga instructor. Creating and connecting is my passion.",
+    "location": "Austin, TX",
+    "interests": ["Arts & Culture", "Health & Wellness", "Music"],
+    "member_since": "2021-01-10",
+    "avatar": "https://i.pravatar.cc/150?img=5"
+  },
+  {
+    "id": 4,
+    "name": "David Kim",
+    "email": "david.kim@example.com",
+    "password": "password123",
+    "bio": "Foodie and amateur chef. Always looking for the next great meal!",
+    "location": "New York, NY",
+    "interests": ["Food & Drink", "Social Activities", "Travel & Outdoor"],
+    "member_since": "2018-11-05",
+    "avatar": "https://i.pravatar.cc/150?img=13"
+  },
+  {
+    "id": 5,
+    "name": "Jessica Martinez",
+    "email": "jessica.martinez@example.com",
+    "password": "password123",
+    "bio": "Marathon runner and fitness coach. Let's get moving!",
+    "location": "Los Angeles, CA",
+    "interests": ["Sports & Fitness", "Health & Wellness"],
+    "member_since": "2020-08-22",
+    "avatar": "https://i.pravatar.cc/150?img=9"
+  },
+  {
+    "id": 6,
+    "name": "James Wilson",
+    "email": "james.wilson@example.com",
+    "password": "password123",
+    "bio": "Board game enthusiast and event organizer.",
+    "location": "Chicago, IL",
+    "interests": ["Games", "Social Activities"],
+    "member_since": "2019-04-18",
+    "avatar": "https://i.pravatar.cc/150?img=14"
+  },
+  {
+    "id": 7,
+    "name": "Lisa Anderson",
+    "email": "lisa.anderson@example.com",
+    "password": "password123",
+    "bio": "Book lover and aspiring author. Let's discuss great literature!",
+    "location": "Boston, MA",
+    "interests": ["Books & Writing", "Arts & Culture"],
+    "member_since": "2021-05-30",
+    "avatar": "https://i.pravatar.cc/150?img=10"
+  },
+  {
+    "id": 8,
+    "name": "Robert Taylor",
+    "email": "robert.taylor@example.com",
+    "password": "password123",
+    "bio": "Photographer and travel blogger exploring the world one city at a time.",
+    "location": "Portland, OR",
+    "interests": ["Film & Photography", "Travel & Outdoor"],
+    "member_since": "2020-02-14",
+    "avatar": "https://i.pravatar.cc/150?img=15"
+  },
+  {
+    "id": 9,
+    "name": "Amanda White",
+    "email": "amanda.white@example.com",
+    "password": "password123",
+    "bio": "Music producer and DJ. Electronic beats are my life.",
+    "location": "Miami, FL",
+    "interests": ["Music", "Social Activities", "Arts & Culture"],
+    "member_since": "2019-09-08",
+    "avatar": "https://i.pravatar.cc/150?img=20"
+  },
+  {
+    "id": 10,
+    "name": "Chris Brown",
+    "email": "chris.brown@example.com",
+    "password": "password123",
+    "bio": "Entrepreneur and startup mentor. Happy to share my experience!",
+    "location": "San Francisco, CA",
+    "interests": ["Business & Career", "Technology"],
+    "member_since": "2018-07-12",
+    "avatar": "https://i.pravatar.cc/150?img=33"
+  },
+  {
+    "id": 11,
+    "name": "Maria Garcia",
+    "email": "maria.garcia@example.com",
+    "password": "password123",
+    "bio": "Yoga teacher and meditation guide finding peace in chaos.",
+    "location": "San Diego, CA",
+    "interests": ["Health & Wellness", "Social Activities"],
+    "member_since": "2021-03-25",
+    "avatar": "https://i.pravatar.cc/150?img=23"
+  },
+  {
+    "id": 12,
+    "name": "Kevin Lee",
+    "email": "kevin.lee@example.com",
+    "password": "password123",
+    "bio": "Gaming streamer and esports enthusiast.",
+    "location": "Denver, CO",
+    "interests": ["Games", "Technology"],
+    "member_since": "2020-10-15",
+    "avatar": "https://i.pravatar.cc/150?img=51"
+  },
+  {
+    "id": 13,
+    "name": "Sophie Turner",
+    "email": "sophie.turner@example.com",
+    "password": "password123",
+    "bio": "Wine enthusiast and sommelier in training.",
+    "location": "Napa, CA",
+    "interests": ["Food & Drink", "Social Activities"],
+    "member_since": "2019-12-01",
+    "avatar": "https://i.pravatar.cc/150?img=24"
+  },
+  {
+    "id": 14,
+    "name": "Daniel Murphy",
+    "email": "daniel.murphy@example.com",
+    "password": "password123",
+    "bio": "Rock climbing instructor and outdoor adventure guide.",
+    "location": "Boulder, CO",
+    "interests": ["Travel & Outdoor", "Sports & Fitness"],
+    "member_since": "2020-06-08",
+    "avatar": "https://i.pravatar.cc/150?img=52"
+  },
+  {
+    "id": 15,
+    "name": "Rachel Green",
+    "email": "rachel.green@example.com",
+    "password": "password123",
+    "bio": "Fashion designer and art gallery curator.",
+    "location": "New York, NY",
+    "interests": ["Arts & Culture", "Social Activities"],
+    "member_since": "2021-07-19",
+    "avatar": "https://i.pravatar.cc/150?img=27"
+  },
+  {
+    "id": 16,
+    "name": "Tom Harris",
+    "email": "tom.harris@example.com",
+    "password": "password123",
+    "bio": "Film critic and indie movie lover.",
+    "location": "Los Angeles, CA",
+    "interests": ["Film & Photography", "Arts & Culture"],
+    "member_since": "2019-02-28",
+    "avatar": "https://i.pravatar.cc/150?img=53"
+  },
+  {
+    "id": 17,
+    "name": "Nicole Davis",
+    "email": "nicole.davis@example.com",
+    "password": "password123",
+    "bio": "Marathon organizer and running coach.",
+    "location": "Chicago, IL",
+    "interests": ["Sports & Fitness", "Health & Wellness"],
+    "member_since": "2020-04-11",
+    "avatar": "https://i.pravatar.cc/150?img=29"
+  },
+  {
+    "id": 18,
+    "name": "Alex Thompson",
+    "email": "alex.thompson@example.com",
+    "password": "password123",
+    "bio": "Jazz musician and music theory teacher.",
+    "location": "New Orleans, LA",
+    "interests": ["Music", "Arts & Culture"],
+    "member_since": "2018-09-22",
+    "avatar": "https://i.pravatar.cc/150?img=54"
+  },
+  {
+    "id": 19,
+    "name": "Laura Mitchell",
+    "email": "laura.mitchell@example.com",
+    "password": "password123",
+    "bio": "Food blogger and cooking class instructor.",
+    "location": "Portland, OR",
+    "interests": ["Food & Drink", "Social Activities"],
+    "member_since": "2021-08-05",
+    "avatar": "https://i.pravatar.cc/150?img=32"
+  },
+  {
+    "id": 20,
+    "name": "Ryan Cooper",
+    "email": "ryan.cooper@example.com",
+    "password": "password123",
+    "bio": "AI researcher and tech conference speaker.",
+    "location": "Seattle, WA",
+    "interests": ["Technology", "Business & Career"],
+    "member_since": "2019-11-17",
+    "avatar": "https://i.pravatar.cc/150?img=56"
+  }
+]

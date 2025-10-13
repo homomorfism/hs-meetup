@@ -9,3 +9,5 @@ python-multipart
 python-dotenv
 pydantic
 pydantic-settings
+pyrootutils
+bcrypt<4

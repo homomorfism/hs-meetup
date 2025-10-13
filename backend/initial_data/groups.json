@@ -1,0 +1,167 @@
+[
+  {
+    "id": 1,
+    "name": "SF Tech Innovators",
+    "description": "A community for tech enthusiasts to discuss the latest trends in software development, AI, and startups.",
+    "category": "Technology",
+    "location": "San Francisco, CA",
+    "members_count": 3542,
+    "organizer": 1,
+    "image": "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&h=300&fit=crop",
+    "founded": "2018-05-12"
+  },
+  {
+    "id": 2,
+    "name": "Seattle Hiking Adventures",
+    "description": "Explore the beautiful trails around Seattle with fellow outdoor enthusiasts.",
+    "category": "Travel & Outdoor",
+    "location": "Seattle, WA",
+    "members_count": 2156,
+    "organizer": 2,
+    "image": "https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&h=300&fit=crop",
+    "founded": "2019-03-20"
+  },
+  {
+    "id": 3,
+    "name": "Austin Artists Collective",
+    "description": "Local artists gathering to share work, collaborate, and inspire creativity.",
+    "category": "Arts & Culture",
+    "location": "Austin, TX",
+    "members_count": 892,
+    "organizer": 3,
+    "image": "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=400&h=300&fit=crop",
+    "founded": "2020-01-08"
+  },
+  {
+    "id": 4,
+    "name": "NYC Food Lovers",
+    "description": "Discover hidden gems and culinary delights across New York City.",
+    "category": "Food & Drink",
+    "location": "New York, NY",
+    "members_count": 4238,
+    "organizer": 4,
+    "image": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop",
+    "founded": "2017-09-15"
+  },
+  {
+    "id": 5,
+    "name": "LA Marathon Training",
+    "description": "Training group for runners preparing for marathons and half-marathons.",
+    "category": "Sports & Fitness",
+    "location": "Los Angeles, CA",
+    "members_count": 1567,
+    "organizer": 5,
+    "image": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=400&h=300&fit=crop",
+    "founded": "2019-06-22"
+  },
+  {
+    "id": 6,
+    "name": "Chicago Board Game Night",
+    "description": "Weekly gatherings to play classic and modern board games with friendly people.",
+    "category": "Games",
+    "location": "Chicago, IL",
+    "members_count": 743,
+    "organizer": 6,
+    "image": "https://images.unsplash.com/photo-1632501641765-e568d28b0015?w=400&h=300&fit=crop",
+    "founded": "2020-02-10"
+  },
+  {
+    "id": 7,
+    "name": "Boston Book Club",
+    "description": "Monthly book discussions for literature lovers of all genres.",
+    "category": "Books & Writing",
+    "location": "Boston, MA",
+    "members_count": 1234,
+    "organizer": 7,
+    "image": "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=400&h=300&fit=crop",
+    "founded": "2018-11-03"
+  },
+  {
+    "id": 8,
+    "name": "Portland Photography Club",
+    "description": "Amateur and professional photographers exploring Portland through their lenses.",
+    "category": "Film & Photography",
+    "location": "Portland, OR",
+    "members_count": 987,
+    "organizer": 8,
+    "image": "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=400&h=300&fit=crop",
+    "founded": "2019-04-17"
+  },
+  {
+    "id": 9,
+    "name": "Miami Electronic Music Scene",
+    "description": "For lovers of house, techno, and electronic beats. Club nights and producer meetups.",
+    "category": "Music",
+    "location": "Miami, FL",
+    "members_count": 2341,
+    "organizer": 9,
+    "image": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=300&fit=crop",
+    "founded": "2018-07-28"
+  },
+  {
+    "id": 10,
+    "name": "SF Startup Founders",
+    "description": "Networking and mentorship for entrepreneurs building the next big thing.",
+    "category": "Business & Career",
+    "location": "San Francisco, CA",
+    "members_count": 2876,
+    "organizer": 10,
+    "image": "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400&h=300&fit=crop",
+    "founded": "2017-03-11"
+  },
+  {
+    "id": 11,
+    "name": "San Diego Yoga & Mindfulness",
+    "description": "Weekly yoga sessions and meditation workshops for inner peace.",
+    "category": "Health & Wellness",
+    "location": "San Diego, CA",
+    "members_count": 1654,
+    "organizer": 11,
+    "image": "https://images.unsplash.com/photo-1545389336-cf090694435e?w=400&h=300&fit=crop",
+    "founded": "2020-08-05"
+  },
+  {
+    "id": 12,
+    "name": "Denver Gaming Community",
+    "description": "PC, console, and tabletop gaming events for all skill levels.",
+    "category": "Games",
+    "location": "Denver, CO",
+    "members_count": 1456,
+    "organizer": 12,
+    "image": "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=300&fit=crop",
+    "founded": "2019-10-20"
+  },
+  {
+    "id": 13,
+    "name": "Napa Wine Tasting Society",
+    "description": "Explore vineyards and learn about wine with fellow enthusiasts.",
+    "category": "Food & Drink",
+    "location": "Napa, CA",
+    "members_count": 534,
+    "organizer": 13,
+    "image": "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400&h=300&fit=crop",
+    "founded": "2018-04-14"
+  },
+  {
+    "id": 14,
+    "name": "Boulder Rock Climbing",
+    "description": "Indoor and outdoor climbing adventures for beginners to experts.",
+    "category": "Sports & Fitness",
+    "location": "Boulder, CO",
+    "members_count": 2109,
+    "organizer": 14,
+    "image": "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=400&h=300&fit=crop",
+    "founded": "2019-02-08"
+  },
+  {
+    "id": 15,
+    "name": "NYC Creative Professionals",
+    "description": "Networking events for designers, artists, and creative industry workers.",
+    "category": "Arts & Culture",
+    "location": "New York, NY",
+    "members_count": 3421,
+    "organizer": 15,
+    "image": "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=400&h=300&fit=crop",
+    "founded": "2017-11-19"
+  }
+]
