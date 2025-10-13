@@ -1,0 +1,175 @@
+.userProfile {
+  min-height: 100vh;
+  background: #f7f7f7;
+}
+
+.header {
+  background: white;
+  padding: 3rem 0;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.headerInfo {
+  flex: 1;
+}
+
+.name {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  color: #1f1f1f;
+}
+
+.location {
+  font-size: 1.125rem;
+  color: #757575;
+  margin-bottom: 0.25rem;
+}
+
+.memberSince {
+  font-size: 0.875rem;
+  color: #999;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: fit-content;
+  position: sticky;
+  top: 100px;
+}
+
+.card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cardTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  color: #1f1f1f;
+}
+
+.bio {
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.interests {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.interest {
+  background: #f0f0f0;
+  color: #555;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.section {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 1.5rem 0;
+  color: #1f1f1f;
+}
+
+.groupsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.eventsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #757575;
+}
+
+.emptyState p {
+  font-size: 1.125rem;
+  margin: 0;
+}
+
+.notFound {
+  max-width: 1200px;
+  margin: 4rem auto;
+  padding: 3rem;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #757575;
+}
+
+@media (max-width: 968px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+  }
+
+  .headerContent {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .name {
+    font-size: 2rem;
+  }
+
+  .groupsGrid, .eventsGrid {
+    grid-template-columns: 1fr;
+  }
+}
