@@ -1,0 +1,50 @@
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, Table, ForeignKey
+from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
+from ..database import Base
+
+
+# Association table for user interests
+user_interests = Table(
+    'user_interests',
+    Base.metadata,
+    Column('user_id', Integer, ForeignKey('users.id', ondelete='CASCADE'), primary_key=True),
+    Column('category', String, primary_key=True)
+)
+
+# Association table for event attendees
+event_attendees = Table(
+    'event_attendees',
+    Base.metadata,
+    Column('user_id', Integer, ForeignKey('users.id', ondelete='CASCADE'), primary_key=True),
+    Column('event_id', Integer, ForeignKey('events.id', ondelete='CASCADE'), primary_key=True)
+)
+
+# Association table for group members
+group_members = Table(
+    'group_members',
+    Base.metadata,
+    Column('user_id', Integer, ForeignKey('users.id', ondelete='CASCADE'), primary_key=True),
+    Column('group_id', Integer, ForeignKey('groups.id', ondelete='CASCADE'), primary_key=True)
+)
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, unique=True, index=True, nullable=False)
+    password_hash = Column(String, nullable=False)
+    name = Column(String, nullable=False)
+    bio = Column(String)
+    location = Column(String)
+    avatar = Column(String)
+    member_since = Column(DateTime(timezone=True), server_default=func.now())
+    is_active = Column(Boolean, default=True)
+
+    # Relationships
+    interests = relationship("Category", secondary="user_interests", back_populates="interested_users")
+    organized_groups = relationship("Group", back_populates="organizer", foreign_keys="Group.organizer_id")
+    organized_events = relationship("Event", back_populates="organizer", foreign_keys="Event.organizer_id")
+    attended_events = relationship("Event", secondary=event_attendees, back_populates="attendees")
+    joined_groups = relationship("Group", secondary=group_members, back_populates="members")
