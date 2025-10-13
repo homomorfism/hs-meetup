@@ -1,7 +1,23 @@
-import { categories } from '../data';
+import { useState, useEffect } from 'react';
+import { categoriesAPI } from '../services/api';
 import styles from './Filters.module.css';
 
 export default function Filters({ filters, onChange }) {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const data = await categoriesAPI.getAll();
+        setCategories(data);
+      } catch (err) {
+        console.error('Error fetching categories:', err);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   const handleChange = (key, value) => {
     onChange({ ...filters, [key]: value });
   };

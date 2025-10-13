@@ -1,22 +1,49 @@
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import EventCard from '../components/EventCard';
 import GroupCard from '../components/GroupCard';
-import { users, events, groups } from '../data';
+import { usersAPI } from '../services/api';
 import styles from './UserProfile.module.css';
 
 export default function UserProfile() {
   const { id } = useParams();
-  const user = users.find(u => u.id === parseInt(id));
+  const [user, setUser] = useState(null);
+  const [userEvents, setUserEvents] = useState([]);
+  const [userGroups, setUserGroups] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  if (!user) {
-    return <div className={styles.notFound}>User not found</div>;
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        setLoading(true);
+        const [userData, eventsData, groupsData] = await Promise.all([
+          usersAPI.getById(id),
+          usersAPI.getEvents(id),
+          usersAPI.getGroups(id)
+        ]);
+
+        setUser(userData);
+        setUserEvents(eventsData);
+        setUserGroups(groupsData);
+      } catch (err) {
+        setError(err.message);
+        console.error('Error fetching user:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [id]);
+
+  if (loading) {
+    return <div className={styles.loading}>Loading...</div>;
   }
 
-  // Get events organized by this user
-  const userEvents = events.filter(e => e.organizer === user.id);
-
-  // Get groups where this user is an organizer
-  const userGroups = groups.filter(g => g.organizer === user.id);
+  if (error || !user) {
+    return <div className={styles.notFound}>User not found</div>;
+  }
 
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
@@ -32,7 +59,7 @@ export default function UserProfile() {
             <div className={styles.headerInfo}>
               <h1 className={styles.name}>{user.name}</h1>
               <div className={styles.location}>{user.location}</div>
-              <div className={styles.memberSince}>Member since {formatDate(user.memberSince)}</div>
+              <div className={styles.memberSince}>Member since {formatDate(user.member_since)}</div>
             </div>
           </div>
         </div>
@@ -46,14 +73,16 @@ export default function UserProfile() {
               <p className={styles.bio}>{user.bio}</p>
             </div>
 
-            <div className={styles.card}>
-              <h2 className={styles.cardTitle}>Interests</h2>
-              <div className={styles.interests}>
-                {user.interests.map((interest, index) => (
-                  <span key={index} className={styles.interest}>{interest}</span>
-                ))}
+            {user.interests && user.interests.length > 0 && (
+              <div className={styles.card}>
+                <h2 className={styles.cardTitle}>Interests</h2>
+                <div className={styles.interests}>
+                  {user.interests.map((interest, index) => (
+                    <span key={index} className={styles.interest}>{interest}</span>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </aside>
 
           <main className={styles.main}>

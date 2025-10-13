@@ -81,12 +81,10 @@ Once running, visit:
 
 The database is seeded with test users:
 
-```
-Email: test1@example.com | Password: password123
-Email: test2@example.com | Password: password123
-Email: test3@example.com | Password: password123
-Email: test4@example.com | Password: password123
-Email: test5@example.com | Password: password123
+```text
+Email: sarah.johnson@example.com | Password: password123
+Email: michael.chen@example.com | Password: password123
+Email: emily.rodriguez@example.com | Password: password123
 ```
 
 All other users also have password: `password123`
@@ -141,7 +139,7 @@ uvicorn app.main:app --reload
 Create a `.env` file in the backend directory:
 
 ```env
-DATABASE_URL=postgresql://meetup_user:meetup_password@postgres:5432/meetup_db
+DATABASE_URL=postgresql://meetup_user:meetup_password@postgres:10000/meetup_db
 SECRET_KEY=your-secret-key-here
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30

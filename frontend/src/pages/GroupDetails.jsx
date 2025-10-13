@@ -1,26 +1,59 @@
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import EventCard from '../components/EventCard';
 import UserCard from '../components/UserCard';
-import { groups, events, users } from '../data';
+import { groupsAPI, usersAPI } from '../services/api';
 import styles from './GroupDetails.module.css';
 
 export default function GroupDetails() {
   const { id } = useParams();
-  const group = groups.find(g => g.id === parseInt(id));
+  const [group, setGroup] = useState(null);
+  const [organizer, setOrganizer] = useState(null);
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
+  const [pastEvents, setPastEvents] = useState([]);
+  const [members, setMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  if (!group) {
-    return <div className={styles.notFound}>Group not found</div>;
+  useEffect(() => {
+    const fetchGroupData = async () => {
+      try {
+        setLoading(true);
+        const groupData = await groupsAPI.getById(id);
+        setGroup(groupData);
+
+        const [organizerData, eventsData, membersData] = await Promise.all([
+          groupData.organizer_id ? usersAPI.getById(groupData.organizer_id) : null,
+          groupsAPI.getEvents(id),
+          groupsAPI.getMembers(id)
+        ]);
+
+        setOrganizer(organizerData);
+
+        // Filter upcoming and past events
+        const now = new Date();
+        setUpcomingEvents(eventsData.filter(e => new Date(e.date) >= now));
+        setPastEvents(eventsData.filter(e => new Date(e.date) < now));
+
+        setMembers(membersData.slice(0, 6));
+      } catch (err) {
+        setError(err.message);
+        console.error('Error fetching group:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGroupData();
+  }, [id]);
+
+  if (loading) {
+    return <div className={styles.loading}>Loading...</div>;
   }
 
-  const organizer = users.find(u => u.id === group.organizer);
-
-  // Get events for this group
-  const groupEvents = events.filter(e => e.group === group.id);
-  const upcomingEvents = groupEvents.filter(e => new Date(e.date) >= new Date());
-  const pastEvents = groupEvents.filter(e => new Date(e.date) < new Date());
-
-  // Get some members
-  const members = users.slice(0, 6);
+  if (error || !group) {
+    return <div className={styles.notFound}>Group not found</div>;
+  }
 
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
@@ -30,7 +63,7 @@ export default function GroupDetails() {
   return (
     <div className={styles.groupDetails}>
       <div className={styles.hero}>
-        <img src={group.image} alt={group.name} className={styles.heroImage} />
+        <img src={group.image || `https://source.unsplash.com/1200x400/?community`} alt={group.name} className={styles.heroImage} />
       </div>
 
       <div className={styles.header}>
@@ -38,7 +71,7 @@ export default function GroupDetails() {
           <h1 className={styles.title}>{group.name}</h1>
           <div className={styles.meta}>
             <span>{group.location}</span>
-            <span>{group.members.toLocaleString()} members</span>
+            <span>{(group.members_count || 0).toLocaleString()} members</span>
             <span>Founded {formatDate(group.founded)}</span>
           </div>
         </div>
@@ -75,7 +108,7 @@ export default function GroupDetails() {
             )}
 
             <section className={styles.section}>
-              <h2>Members ({group.members.toLocaleString()})</h2>
+              <h2>Members ({(group.members_count || 0).toLocaleString()})</h2>
               <div className={styles.membersGrid}>
                 {members.map(user => (
                   <UserCard key={user.id} user={user} />
@@ -88,7 +121,7 @@ export default function GroupDetails() {
             <div className={styles.card}>
               <button className={styles.joinBtn}>Join group</button>
               <div className={styles.memberInfo}>
-                {group.members.toLocaleString()} members
+                {(group.members_count || 0).toLocaleString()} members
               </div>
             </div>
 
