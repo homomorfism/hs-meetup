@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from .database import engine, Base, SessionLocal
-from .api import auth, users, categories, groups, events
+from .api import auth, users, categories, groups, events, chats
 from .seed_data import seed_database
 
 
@@ -50,6 +50,7 @@ app.include_router(users.router, prefix="/api")
 app.include_router(categories.router, prefix="/api")
 app.include_router(groups.router, prefix="/api")
 app.include_router(events.router, prefix="/api")
+app.include_router(chats.router, prefix="/api")
 
 
 @app.get("/")

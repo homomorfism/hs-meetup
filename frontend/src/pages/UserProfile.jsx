@@ -1,17 +1,23 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import EventCard from '../components/EventCard';
 import GroupCard from '../components/GroupCard';
-import { usersAPI } from '../services/api';
+import { usersAPI, chatAPI } from '../services/api';
 import styles from './UserProfile.module.css';
 
 export default function UserProfile() {
   const { id } = useParams();
+  const { user: currentUser, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [userEvents, setUserEvents] = useState([]);
   const [userGroups, setUserGroups] = useState([]);
+  const [friends, setFriends] = useState([]);
+  const [isFriend, setIsFriend] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [actionLoading, setActionLoading] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -26,6 +32,17 @@ export default function UserProfile() {
         setUser(userData);
         setUserEvents(eventsData);
         setUserGroups(groupsData);
+
+        // Check if they are friends (only if authenticated)
+        if (isAuthenticated && currentUser) {
+          try {
+            const friendsList = await usersAPI.getFriends(currentUser.id);
+            setFriends(friendsList);
+            setIsFriend(friendsList.some(friend => friend.id === parseInt(id)));
+          } catch (err) {
+            console.error('Error fetching friends:', err);
+          }
+        }
       } catch (err) {
         setError(err.message);
         console.error('Error fetching user:', err);
@@ -35,7 +52,7 @@ export default function UserProfile() {
     };
 
     fetchUserData();
-  }, [id]);
+  }, [id, isAuthenticated, currentUser]);
 
   if (loading) {
     return <div className={styles.loading}>Loading...</div>;
@@ -50,6 +67,47 @@ export default function UserProfile() {
     return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
   };
 
+  const handleAddFriend = async () => {
+    if (!currentUser) return;
+    setActionLoading(true);
+    try {
+      await usersAPI.addFriend(currentUser.id, parseInt(id));
+      setIsFriend(true);
+    } catch (err) {
+      console.error('Error adding friend:', err);
+      alert(err.message || 'Failed to add friend');
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleRemoveFriend = async () => {
+    if (!currentUser) return;
+    setActionLoading(true);
+    try {
+      await usersAPI.removeFriend(currentUser.id, parseInt(id));
+      setIsFriend(false);
+    } catch (err) {
+      console.error('Error removing friend:', err);
+      alert(err.message || 'Failed to remove friend');
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleSendMessage = async () => {
+    if (!currentUser) return;
+    try {
+      const conversation = await chatAPI.getOrCreateConversation(parseInt(id));
+      navigate(`/chat?conversation=${conversation.id}`);
+    } catch (err) {
+      console.error('Error creating conversation:', err);
+      alert('Failed to start conversation. Chat feature may not be available yet.');
+    }
+  };
+
+  const isOwnProfile = currentUser && currentUser.id === parseInt(id);
+
   return (
     <div className={styles.userProfile}>
       <div className={styles.header}>
@@ -60,6 +118,36 @@ export default function UserProfile() {
               <h1 className={styles.name}>{user.name}</h1>
               <div className={styles.location}>{user.location}</div>
               <div className={styles.memberSince}>Member since {formatDate(user.member_since)}</div>
+
+              {isAuthenticated && !isOwnProfile && (
+                <div className={styles.actions}>
+                  {isFriend ? (
+                    <>
+                      <button
+                        onClick={handleSendMessage}
+                        className={styles.primaryBtn}
+                      >
+                        Send Message
+                      </button>
+                      <button
+                        onClick={handleRemoveFriend}
+                        className={styles.secondaryBtn}
+                        disabled={actionLoading}
+                      >
+                        {actionLoading ? 'Removing...' : 'Remove Friend'}
+                      </button>
+                    </>
+                  ) : (
+                    <button
+                      onClick={handleAddFriend}
+                      className={styles.primaryBtn}
+                      disabled={actionLoading}
+                    >
+                      {actionLoading ? 'Adding...' : 'Add Friend'}
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -28,6 +28,15 @@ group_members = Table(
     Column('group_id', Integer, ForeignKey('groups.id', ondelete='CASCADE'), primary_key=True)
 )
 
+# Association table for friendships
+friendships = Table(
+    'friendships',
+    Base.metadata,
+    Column('user_id', Integer, ForeignKey('users.id', ondelete='CASCADE'), primary_key=True),
+    Column('friend_id', Integer, ForeignKey('users.id', ondelete='CASCADE'), primary_key=True),
+    Column('created_at', DateTime(timezone=True), server_default=func.now())
+)
+
 
 class User(Base):
     __tablename__ = "users"
@@ -48,3 +57,12 @@ class User(Base):
     organized_events = relationship("Event", back_populates="organizer", foreign_keys="Event.organizer_id", cascade="all, delete-orphan")
     attended_events = relationship("Event", secondary=event_attendees, back_populates="attendees")
     joined_groups = relationship("Group", secondary=group_members, back_populates="members")
+
+    # Friendships - bidirectional relationship
+    friends = relationship(
+        "User",
+        secondary=friendships,
+        primaryjoin=(id == friendships.c.user_id),
+        secondaryjoin=(id == friendships.c.friend_id),
+        backref="friend_of"
+    )

@@ -3,6 +3,7 @@ from datetime import datetime
 from pathlib import Path
 import traceback
 from sqlalchemy.orm import Session
+from sqlalchemy import text
 
 from .database import SessionLocal, engine
 from .models import User, Category, Group, Event, user_interests
@@ -116,6 +117,18 @@ def seed_database():
 
         db.commit()
         print(f"✓ Seeded {len(events_data)} events")
+
+        # Reset sequences to prevent duplicate key errors
+        print("\nResetting ID sequences...")
+        try:
+            db.execute(text("SELECT setval('users_id_seq', (SELECT MAX(id) FROM users));"))
+            db.execute(text("SELECT setval('categories_id_seq', (SELECT MAX(id) FROM categories));"))
+            db.execute(text("SELECT setval('groups_id_seq', (SELECT MAX(id) FROM groups));"))
+            db.execute(text("SELECT setval('events_id_seq', (SELECT MAX(id) FROM events));"))
+            db.commit()
+            print("✓ Sequences reset successfully")
+        except Exception as seq_error:
+            print(f"Warning: Could not reset sequences: {seq_error}")
 
         print("\n✅ Database seeded successfully!")
         print("\nSample User Credentials (all users have same password):")

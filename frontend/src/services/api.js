@@ -43,7 +43,10 @@ export const authAPI = {
     const response = await fetch(`${API_BASE_URL}/auth/login`, {
       method: 'POST',
       headers: createHeaders(),
-      body: JSON.stringify(credentials),
+      body: JSON.stringify({
+        email: credentials.username || credentials.email,
+        password: credentials.password,
+      }),
     });
     return handleResponse(response);
   },
@@ -197,8 +200,69 @@ export const usersAPI = {
     return handleResponse(response);
   },
 
+  getAttending: async (id) => {
+    const response = await fetch(`${API_BASE_URL}/users/${id}/attending`);
+    return handleResponse(response);
+  },
+
   getGroups: async (id) => {
     const response = await fetch(`${API_BASE_URL}/users/${id}/groups`);
+    return handleResponse(response);
+  },
+
+  getFriends: async (id) => {
+    const response = await fetch(`${API_BASE_URL}/users/${id}/friends`);
+    return handleResponse(response);
+  },
+
+  addFriend: async (userId, friendId) => {
+    const response = await fetch(`${API_BASE_URL}/users/${userId}/friends/${friendId}`, {
+      method: 'POST',
+      headers: createHeaders(true),
+    });
+    return handleResponse(response);
+  },
+
+  removeFriend: async (userId, friendId) => {
+    const response = await fetch(`${API_BASE_URL}/users/${userId}/friends/${friendId}`, {
+      method: 'DELETE',
+      headers: createHeaders(true),
+    });
+    return handleResponse(response);
+  },
+};
+
+// Chat API
+export const chatAPI = {
+  getConversations: async () => {
+    const response = await fetch(`${API_BASE_URL}/chats`, {
+      headers: createHeaders(true),
+    });
+    return handleResponse(response);
+  },
+
+  getOrCreateConversation: async (friendId) => {
+    const response = await fetch(`${API_BASE_URL}/chats`, {
+      method: 'POST',
+      headers: createHeaders(true),
+      body: JSON.stringify({ friend_id: friendId }),
+    });
+    return handleResponse(response);
+  },
+
+  getMessages: async (chatId) => {
+    const response = await fetch(`${API_BASE_URL}/chats/${chatId}/messages`, {
+      headers: createHeaders(true),
+    });
+    return handleResponse(response);
+  },
+
+  sendMessage: async (chatId, content) => {
+    const response = await fetch(`${API_BASE_URL}/chats/${chatId}/messages`, {
+      method: 'POST',
+      headers: createHeaders(true),
+      body: JSON.stringify({ content }),
+    });
     return handleResponse(response);
   },
 };
