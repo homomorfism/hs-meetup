@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SearchBar from '../components/SearchBar';
 import EventCard from '../components/EventCard';
 import { eventsAPI, categoriesAPI } from '../services/api';
 import styles from './Home.module.css';
 
 export default function Home() {
+  const navigate = useNavigate();
   const [upcomingEvents, setUpcomingEvents] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const [searchLocation, setSearchLocation] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,6 +35,18 @@ export default function Home() {
 
     fetchData();
   }, []);
+
+  const handleSearchChange = ({ keyword, location }) => {
+    setSearchKeyword(keyword);
+    setSearchLocation(location);
+    // Navigate to find page with search params when user types
+    if (keyword || location) {
+      const params = new URLSearchParams();
+      if (keyword) params.append('keyword', keyword);
+      if (location) params.append('location', location);
+      navigate(`/find?${params.toString()}`);
+    }
+  };
 
   if (loading) {
     return (
@@ -59,7 +74,11 @@ export default function Home() {
             Whatever your interest, from hiking and reading to networking and skill sharing,
             there are thousands of people who share it on Meetup.
           </p>
-          <SearchBar />
+          <SearchBar
+            keyword={searchKeyword}
+            location={searchLocation}
+            onChange={handleSearchChange}
+          />
         </div>
       </section>
 

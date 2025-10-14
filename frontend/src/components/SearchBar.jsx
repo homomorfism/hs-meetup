@@ -1,29 +1,22 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styles from './SearchBar.module.css';
 
-export default function SearchBar({ onSearch }) {
-  const [keyword, setKeyword] = useState('');
-  const [location, setLocation] = useState('');
-  const navigate = useNavigate();
+export default function SearchBar({ keyword, location, onChange }) {
+  const handleKeywordChange = (e) => {
+    onChange({ keyword: e.target.value, location });
+  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (onSearch) {
-      onSearch({ keyword, location });
-    } else {
-      navigate(`/find?keyword=${keyword}&location=${location}`);
-    }
+  const handleLocationChange = (e) => {
+    onChange({ keyword, location: e.target.value });
   };
 
   return (
-    <form className={styles.searchBar} onSubmit={handleSubmit}>
+    <div className={styles.searchBar}>
       <div className={styles.inputGroup}>
         <input
           type="text"
           placeholder="Search for events"
           value={keyword}
-          onChange={(e) => setKeyword(e.target.value)}
+          onChange={handleKeywordChange}
           className={styles.input}
         />
       </div>
@@ -32,11 +25,10 @@ export default function SearchBar({ onSearch }) {
           type="text"
           placeholder="Location"
           value={location}
-          onChange={(e) => setLocation(e.target.value)}
+          onChange={handleLocationChange}
           className={styles.input}
         />
       </div>
-      <button type="submit" className={styles.searchBtn}>Search</button>
-    </form>
+    </div>
   );
 }
