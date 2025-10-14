@@ -17,6 +17,7 @@ def list_groups(
     limit: int = 100,
     category: Optional[str] = None,
     location: Optional[str] = None,
+    keyword: Optional[str] = None,
     db: Session = Depends(get_db)
 ):
     query = db.query(Group)
@@ -25,6 +26,12 @@ def list_groups(
         query = query.filter(Group.category == category)
     if location:
         query = query.filter(Group.location.ilike(f"%{location}%"))
+    if keyword:
+        # Search in both name and description
+        search_filter = f"%{keyword}%"
+        query = query.filter(
+            (Group.name.ilike(search_filter)) | (Group.description.ilike(search_filter))
+        )
 
     groups = query.offset(skip).limit(limit).all()
     return groups

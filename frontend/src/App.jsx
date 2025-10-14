@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import FindEvents from './pages/FindEvents';
+import FindGroups from './pages/FindGroups';
 import EventDetails from './pages/EventDetails';
 import UserProfile from './pages/UserProfile';
 import GroupDetails from './pages/GroupDetails';
@@ -24,6 +25,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/find" element={<FindEvents />} />
+              <Route path="/groups" element={<FindGroups />} />
               <Route path="/events/:id" element={<EventDetails />} />
               <Route path="/members/:id" element={<UserProfile />} />
               <Route path="/groups/:id" element={<GroupDetails />} />
