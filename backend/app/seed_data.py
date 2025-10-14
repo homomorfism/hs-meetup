@@ -10,7 +10,7 @@ from .core.security import get_password_hash
 from pyrootutils import find_root
 from .database import Base
 
-INITIAL_DATA_DIR = find_root() / "backend" / "initial_data"
+INITIAL_DATA_DIR = Path("__file__").parent / "initial_data"
 
 def load_json_file(filename: str) -> list:
     """Load JSON data from initial_data directory"""
