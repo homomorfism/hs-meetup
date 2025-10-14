@@ -16,7 +16,6 @@ class Event(Base):
     organizer_id = Column(Integer, ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
     location = Column(String)
     location_city = Column(String, index=True)
-    attendees_count = Column(Integer, default=0)
     max_attendees = Column(Integer, nullable=True)
     price = Column(String)
     is_online = Column(Boolean, default=False, index=True)

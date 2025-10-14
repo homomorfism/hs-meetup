@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from typing import List
 from ..database import get_db
 from ..models import User, Event, Group
@@ -9,6 +9,12 @@ from ..schemas.group import Group as GroupSchema
 from ..core.dependencies import get_current_active_user
 
 router = APIRouter(prefix="/users", tags=["Users"])
+
+
+def add_attendees_count(event):
+    """Helper function to add computed attendees_count to event object"""
+    event.attendees_count = len(event.attendees)
+    return event
 
 
 @router.get("/", response_model=List[UserSchema])
@@ -51,16 +57,22 @@ def update_user(
 @router.get("/{user_id}/events", response_model=List[EventSchema])
 def get_user_events(user_id: int, db: Session = Depends(get_db)):
     """Get events organized by the user"""
-    events = db.query(Event).filter(Event.organizer_id == user_id).all()
+    events = db.query(Event).options(joinedload(Event.attendees)).filter(Event.organizer_id == user_id).all()
+    for event in events:
+        add_attendees_count(event)
     return events
 
 
 @router.get("/{user_id}/attending", response_model=List[EventSchema])
 def get_user_attending_events(user_id: int, db: Session = Depends(get_db)):
     """Get events the user is attending"""
-    user = db.query(User).filter(User.id == user_id).first()
+    user = db.query(User).options(joinedload(User.attended_events).joinedload(Event.attendees)).filter(User.id == user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
+
+    for event in user.attended_events:
+        add_attendees_count(event)
+
     return user.attended_events
 
 

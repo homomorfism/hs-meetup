@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, computed_field
 from datetime import date
 from typing import Optional
 
@@ -41,7 +41,7 @@ class Event(EventBase):
     id: int
     group_id: int
     organizer_id: int
-    attendees_count: int
+    attendees_count: int = 0
 
     class Config:
         from_attributes = True

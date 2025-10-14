@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from typing import List, Optional
 from datetime import date
 from ..database import get_db
@@ -9,6 +9,12 @@ from ..schemas.user import User as UserSchema
 from ..core.dependencies import get_current_active_user
 
 router = APIRouter(prefix="/events", tags=["Events"])
+
+
+def add_attendees_count(event):
+    """Helper function to add computed attendees_count to event object"""
+    event.attendees_count = len(event.attendees)
+    return event
 
 
 @router.get("/", response_model=List[EventSchema])
@@ -22,7 +28,7 @@ def list_events(
     price: Optional[str] = None,
     db: Session = Depends(get_db)
 ):
-    query = db.query(Event)
+    query = db.query(Event).options(joinedload(Event.attendees))
 
     if keyword:
         query = query.filter(
@@ -45,14 +51,20 @@ def list_events(
             query = query.filter(~Event.price.ilike("free"))
 
     events = query.offset(skip).limit(limit).all()
+
+    # Add computed attendees_count to each event
+    for event in events:
+        add_attendees_count(event)
+
     return events
 
 
 @router.get("/{event_id}", response_model=EventSchema)
 def get_event(event_id: int, db: Session = Depends(get_db)):
-    event = db.query(Event).filter(Event.id == event_id).first()
+    event = db.query(Event).options(joinedload(Event.attendees)).filter(Event.id == event_id).first()
     if not event:
         raise HTTPException(status_code=404, detail="Event not found")
+    add_attendees_count(event)
     return event
 
 
@@ -75,6 +87,7 @@ def create_event(
     db.add(db_event)
     db.commit()
     db.refresh(db_event)
+    add_attendees_count(db_event)
     return db_event
 
 
@@ -85,7 +98,7 @@ def update_event(
     current_user: User = Depends(get_current_active_user),
     db: Session = Depends(get_db)
 ):
-    db_event = db.query(Event).filter(Event.id == event_id).first()
+    db_event = db.query(Event).options(joinedload(Event.attendees)).filter(Event.id == event_id).first()
     if not db_event:
         raise HTTPException(status_code=404, detail="Event not found")
 
@@ -98,6 +111,7 @@ def update_event(
 
     db.commit()
     db.refresh(db_event)
+    add_attendees_count(db_event)
     return db_event
 
 
@@ -107,17 +121,17 @@ def attend_event(
     current_user: User = Depends(get_current_active_user),
     db: Session = Depends(get_db)
 ):
-    event = db.query(Event).filter(Event.id == event_id).first()
+    event = db.query(Event).options(joinedload(Event.attendees)).filter(Event.id == event_id).first()
     if not event:
         raise HTTPException(status_code=404, detail="Event not found")
 
     # Check if event is full
-    if event.max_attendees and event.attendees_count >= event.max_attendees:
+    current_count = len(event.attendees)
+    if event.max_attendees and current_count >= event.max_attendees:
         raise HTTPException(status_code=400, detail="Event is full")
 
     if current_user not in event.attendees:
         event.attendees.append(current_user)
-        event.attendees_count += 1
         db.commit()
 
     return {"message": "Successfully registered for the event"}

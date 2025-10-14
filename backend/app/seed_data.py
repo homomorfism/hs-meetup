@@ -53,21 +53,30 @@ def seed_database():
         # Create a mapping of category names to category objects
         categories_by_name = {cat.name: cat for cat in db.query(Category).all()}
 
+        # Store friends data for later processing (after all users are created)
+        user_friends_map = {}
+
         for user_data in users_data:
             # Extract interests (category names)
             interests = user_data.pop("interests", [])
-            
+
+            # Extract friends (user IDs) - we'll add them after all users are created
+            friends_ids = user_data.pop("friends", [])
+            user_id = user_data.get("id")
+            if friends_ids:
+                user_friends_map[user_id] = friends_ids
+
             # Remove password field and use hashed password
             password = user_data.pop("password")
             # Parse member_since date
             member_since = datetime.fromisoformat(user_data.pop("member_since"))
-            
+
             user = User(
                 **user_data,
                 password_hash=get_password_hash(password),
                 member_since=member_since
             )
-                
+
             # Add user interests
             for interest_name in interests:
                 if interest_name in categories_by_name:
@@ -77,6 +86,32 @@ def seed_database():
 
         db.commit()
         print(f"✓ Seeded {len(users_data)} users (password: password123)")
+
+        # Now add friendships (bidirectional)
+        print("Adding friendships...")
+        added_friendships = set()  # Track friendships to avoid duplicates
+
+        for user_id, friend_ids in user_friends_map.items():
+            user = db.query(User).filter(User.id == user_id).first()
+            if not user:
+                continue
+
+            for friend_id in friend_ids:
+                # Create a sorted tuple to represent the friendship (to avoid duplicates)
+                friendship_key = tuple(sorted([user_id, friend_id]))
+
+                if friendship_key in added_friendships:
+                    continue  # Skip if already added
+
+                friend = db.query(User).filter(User.id == friend_id).first()
+                if friend and friend not in user.friends:
+                    # Add bidirectional friendship
+                    user.friends.append(friend)
+                    friend.friends.append(user)
+                    added_friendships.add(friendship_key)
+
+        db.commit()
+        print(f"✓ Added {len(added_friendships)} friendships")
 
         # Seed groups
         groups_data = load_json_file("groups.json")
@@ -101,18 +136,27 @@ def seed_database():
         for event_data in events_data:
             # Parse date
             event_date = datetime.fromisoformat(event_data.pop("date"))
+
+            # Extract attendees list (user IDs)
+            attendees_ids = event_data.pop("attendees", [])
+
             # Rename fields to match model
-            if "attendees" in event_data:
-                event_data["attendees_count"] = event_data.pop("attendees")
             if "isOnline" in event_data:
                 event_data["is_online"] = event_data.pop("isOnline")
             if "locationCity" in event_data:
                 event_data["location_city"] = event_data.pop("locationCity")
 
+            # Create event
             event = Event(
                 **event_data,
                 date=event_date
             )
+
+            # Add attendees relationships
+            if attendees_ids:
+                attendee_users = db.query(User).filter(User.id.in_(attendees_ids)).all()
+                event.attendees.extend(attendee_users)
+
             db.add(event)
 
         db.commit()

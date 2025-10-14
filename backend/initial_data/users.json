@@ -6,9 +6,20 @@
     "password": "password123",
     "bio": "Tech enthusiast and community organizer. Love bringing people together!",
     "location": "San Francisco, CA",
-    "interests": ["Technology", "Social Activities", "Business & Career"],
+    "interests": [
+      "Technology",
+      "Social Activities",
+      "Business & Career"
+    ],
     "member_since": "2020-03-15",
-    "avatar": "https://i.pravatar.cc/150?img=1"
+    "avatar": "https://i.pravatar.cc/150?img=1",
+    "friends": [
+      4,
+      16,
+      6,
+      4,
+      3
+    ]
   },
   {
     "id": 2,
@@ -17,9 +28,20 @@
     "password": "password123",
     "bio": "Software developer by day, hiking enthusiast by weekend.",
     "location": "Seattle, WA",
-    "interests": ["Technology", "Travel & Outdoor", "Film & Photography"],
+    "interests": [
+      "Technology",
+      "Travel & Outdoor",
+      "Film & Photography"
+    ],
     "member_since": "2019-06-20",
-    "avatar": "https://i.pravatar.cc/150?img=12"
+    "avatar": "https://i.pravatar.cc/150?img=12",
+    "friends": [
+      18,
+      3,
+      10,
+      1,
+      6
+    ]
   },
   {
     "id": 3,
@@ -28,9 +50,19 @@
     "password": "password123",
     "bio": "Artist and yoga instructor. Creating and connecting is my passion.",
     "location": "Austin, TX",
-    "interests": ["Arts & Culture", "Health & Wellness", "Music"],
+    "interests": [
+      "Arts & Culture",
+      "Health & Wellness",
+      "Music"
+    ],
     "member_since": "2021-01-10",
-    "avatar": "https://i.pravatar.cc/150?img=5"
+    "avatar": "https://i.pravatar.cc/150?img=5",
+    "friends": [
+      13,
+      12,
+      15,
+      15
+    ]
   },
   {
     "id": 4,
@@ -39,9 +71,18 @@
     "password": "password123",
     "bio": "Foodie and amateur chef. Always looking for the next great meal!",
     "location": "New York, NY",
-    "interests": ["Food & Drink", "Social Activities", "Travel & Outdoor"],
+    "interests": [
+      "Food & Drink",
+      "Social Activities",
+      "Travel & Outdoor"
+    ],
     "member_since": "2018-11-05",
-    "avatar": "https://i.pravatar.cc/150?img=13"
+    "avatar": "https://i.pravatar.cc/150?img=13",
+    "friends": [
+      6,
+      13,
+      17
+    ]
   },
   {
     "id": 5,
@@ -50,9 +91,13 @@
     "password": "password123",
     "bio": "Marathon runner and fitness coach. Let's get moving!",
     "location": "Los Angeles, CA",
-    "interests": ["Sports & Fitness", "Health & Wellness"],
+    "interests": [
+      "Sports & Fitness",
+      "Health & Wellness"
+    ],
     "member_since": "2020-08-22",
-    "avatar": "https://i.pravatar.cc/150?img=9"
+    "avatar": "https://i.pravatar.cc/150?img=9",
+    "friends": []
   },
   {
     "id": 6,
@@ -61,9 +106,15 @@
     "password": "password123",
     "bio": "Board game enthusiast and event organizer.",
     "location": "Chicago, IL",
-    "interests": ["Games", "Social Activities"],
+    "interests": [
+      "Games",
+      "Social Activities"
+    ],
     "member_since": "2019-04-18",
-    "avatar": "https://i.pravatar.cc/150?img=14"
+    "avatar": "https://i.pravatar.cc/150?img=14",
+    "friends": [
+      15
+    ]
   },
   {
     "id": 7,
@@ -72,9 +123,16 @@
     "password": "password123",
     "bio": "Book lover and aspiring author. Let's discuss great literature!",
     "location": "Boston, MA",
-    "interests": ["Books & Writing", "Arts & Culture"],
+    "interests": [
+      "Books & Writing",
+      "Arts & Culture"
+    ],
     "member_since": "2021-05-30",
-    "avatar": "https://i.pravatar.cc/150?img=10"
+    "avatar": "https://i.pravatar.cc/150?img=10",
+    "friends": [
+      6,
+      5
+    ]
   },
   {
     "id": 8,
@@ -83,9 +141,16 @@
     "password": "password123",
     "bio": "Photographer and travel blogger exploring the world one city at a time.",
     "location": "Portland, OR",
-    "interests": ["Film & Photography", "Travel & Outdoor"],
+    "interests": [
+      "Film & Photography",
+      "Travel & Outdoor"
+    ],
     "member_since": "2020-02-14",
-    "avatar": "https://i.pravatar.cc/150?img=15"
+    "avatar": "https://i.pravatar.cc/150?img=15",
+    "friends": [
+      2,
+      9
+    ]
   },
   {
     "id": 9,
@@ -94,9 +159,17 @@
     "password": "password123",
     "bio": "Music producer and DJ. Electronic beats are my life.",
     "location": "Miami, FL",
-    "interests": ["Music", "Social Activities", "Arts & Culture"],
+    "interests": [
+      "Music",
+      "Social Activities",
+      "Arts & Culture"
+    ],
     "member_since": "2019-09-08",
-    "avatar": "https://i.pravatar.cc/150?img=20"
+    "avatar": "https://i.pravatar.cc/150?img=20",
+    "friends": [
+      18,
+      13
+    ]
   },
   {
     "id": 10,
@@ -105,9 +178,13 @@
     "password": "password123",
     "bio": "Entrepreneur and startup mentor. Happy to share my experience!",
     "location": "San Francisco, CA",
-    "interests": ["Business & Career", "Technology"],
+    "interests": [
+      "Business & Career",
+      "Technology"
+    ],
     "member_since": "2018-07-12",
-    "avatar": "https://i.pravatar.cc/150?img=33"
+    "avatar": "https://i.pravatar.cc/150?img=33",
+    "friends": []
   },
   {
     "id": 11,
@@ -116,9 +193,19 @@
     "password": "password123",
     "bio": "Yoga teacher and meditation guide finding peace in chaos.",
     "location": "San Diego, CA",
-    "interests": ["Health & Wellness", "Social Activities"],
+    "interests": [
+      "Health & Wellness",
+      "Social Activities"
+    ],
     "member_since": "2021-03-25",
-    "avatar": "https://i.pravatar.cc/150?img=23"
+    "avatar": "https://i.pravatar.cc/150?img=23",
+    "friends": [
+      9,
+      3,
+      19,
+      2,
+      6
+    ]
   },
   {
     "id": 12,
@@ -127,9 +214,19 @@
     "password": "password123",
     "bio": "Gaming streamer and esports enthusiast.",
     "location": "Denver, CO",
-    "interests": ["Games", "Technology"],
+    "interests": [
+      "Games",
+      "Technology"
+    ],
     "member_since": "2020-10-15",
-    "avatar": "https://i.pravatar.cc/150?img=51"
+    "avatar": "https://i.pravatar.cc/150?img=51",
+    "friends": [
+      13,
+      18,
+      11,
+      15,
+      1
+    ]
   },
   {
     "id": 13,
@@ -138,9 +235,15 @@
     "password": "password123",
     "bio": "Wine enthusiast and sommelier in training.",
     "location": "Napa, CA",
-    "interests": ["Food & Drink", "Social Activities"],
+    "interests": [
+      "Food & Drink",
+      "Social Activities"
+    ],
     "member_since": "2019-12-01",
-    "avatar": "https://i.pravatar.cc/150?img=24"
+    "avatar": "https://i.pravatar.cc/150?img=24",
+    "friends": [
+      16
+    ]
   },
   {
     "id": 14,
@@ -149,9 +252,13 @@
     "password": "password123",
     "bio": "Rock climbing instructor and outdoor adventure guide.",
     "location": "Boulder, CO",
-    "interests": ["Travel & Outdoor", "Sports & Fitness"],
+    "interests": [
+      "Travel & Outdoor",
+      "Sports & Fitness"
+    ],
     "member_since": "2020-06-08",
-    "avatar": "https://i.pravatar.cc/150?img=52"
+    "avatar": "https://i.pravatar.cc/150?img=52",
+    "friends": []
   },
   {
     "id": 15,
@@ -160,9 +267,15 @@
     "password": "password123",
     "bio": "Fashion designer and art gallery curator.",
     "location": "New York, NY",
-    "interests": ["Arts & Culture", "Social Activities"],
+    "interests": [
+      "Arts & Culture",
+      "Social Activities"
+    ],
     "member_since": "2021-07-19",
-    "avatar": "https://i.pravatar.cc/150?img=27"
+    "avatar": "https://i.pravatar.cc/150?img=27",
+    "friends": [
+      18
+    ]
   },
   {
     "id": 16,
@@ -171,9 +284,17 @@
     "password": "password123",
     "bio": "Film critic and indie movie lover.",
     "location": "Los Angeles, CA",
-    "interests": ["Film & Photography", "Arts & Culture"],
+    "interests": [
+      "Film & Photography",
+      "Arts & Culture"
+    ],
     "member_since": "2019-02-28",
-    "avatar": "https://i.pravatar.cc/150?img=53"
+    "avatar": "https://i.pravatar.cc/150?img=53",
+    "friends": [
+      6,
+      13,
+      7
+    ]
   },
   {
     "id": 17,
@@ -182,9 +303,16 @@
     "password": "password123",
     "bio": "Marathon organizer and running coach.",
     "location": "Chicago, IL",
-    "interests": ["Sports & Fitness", "Health & Wellness"],
+    "interests": [
+      "Sports & Fitness",
+      "Health & Wellness"
+    ],
     "member_since": "2020-04-11",
-    "avatar": "https://i.pravatar.cc/150?img=29"
+    "avatar": "https://i.pravatar.cc/150?img=29",
+    "friends": [
+      7,
+      13
+    ]
   },
   {
     "id": 18,
@@ -193,9 +321,19 @@
     "password": "password123",
     "bio": "Jazz musician and music theory teacher.",
     "location": "New Orleans, LA",
-    "interests": ["Music", "Arts & Culture"],
+    "interests": [
+      "Music",
+      "Arts & Culture"
+    ],
     "member_since": "2018-09-22",
-    "avatar": "https://i.pravatar.cc/150?img=54"
+    "avatar": "https://i.pravatar.cc/150?img=54",
+    "friends": [
+      19,
+      13,
+      12,
+      4,
+      14
+    ]
   },
   {
     "id": 19,
@@ -204,9 +342,15 @@
     "password": "password123",
     "bio": "Food blogger and cooking class instructor.",
     "location": "Portland, OR",
-    "interests": ["Food & Drink", "Social Activities"],
+    "interests": [
+      "Food & Drink",
+      "Social Activities"
+    ],
     "member_since": "2021-08-05",
-    "avatar": "https://i.pravatar.cc/150?img=32"
+    "avatar": "https://i.pravatar.cc/150?img=32",
+    "friends": [
+      9
+    ]
   },
   {
     "id": 20,
@@ -215,8 +359,15 @@
     "password": "password123",
     "bio": "AI researcher and tech conference speaker.",
     "location": "Seattle, WA",
-    "interests": ["Technology", "Business & Career"],
+    "interests": [
+      "Technology",
+      "Business & Career"
+    ],
     "member_since": "2019-11-17",
-    "avatar": "https://i.pravatar.cc/150?img=56"
+    "avatar": "https://i.pravatar.cc/150?img=56",
+    "friends": [
+      19,
+      13
+    ]
   }
 ]
