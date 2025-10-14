@@ -13,11 +13,7 @@ export default function Chat() {
   const [newMessage, setNewMessage] = useState('');
   const [loading, setLoading] = useState(true);
   const [sendingMessage, setSendingMessage] = useState(false);
-  const messagesEndRef = useRef(null);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const prevMessagesLengthRef = useRef(0);
 
   useEffect(() => {
     const fetchConversations = async () => {
@@ -53,7 +49,7 @@ export default function Chat() {
       try {
         const data = await chatAPI.getMessages(selectedConversation.id);
         setMessages(data);
-        setTimeout(scrollToBottom, 100);
+        prevMessagesLengthRef.current = data.length;
       } catch (err) {
         console.error('Error fetching messages:', err);
       }
@@ -62,7 +58,10 @@ export default function Chat() {
     fetchMessages();
     // Poll for new messages every 3 seconds
     const interval = setInterval(fetchMessages, 3000);
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      prevMessagesLengthRef.current = 0;
+    };
   }, [selectedConversation]);
 
   const handleSendMessage = async (e) => {
@@ -74,7 +73,6 @@ export default function Chat() {
       const message = await chatAPI.sendMessage(selectedConversation.id, newMessage);
       setMessages([...messages, message]);
       setNewMessage('');
-      setTimeout(scrollToBottom, 100);
     } catch (err) {
       console.error('Error sending message:', err);
       alert('Failed to send message');
@@ -189,7 +187,6 @@ export default function Chat() {
                     </div>
                   ))
                 )}
-                <div ref={messagesEndRef} />
               </div>
 
               <form onSubmit={handleSendMessage} className={styles.messageForm}>
