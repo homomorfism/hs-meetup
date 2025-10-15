@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import SearchBar from '../components/SearchBar';
 import EventCard from '../components/EventCard';
+import EventMap from '../components/EventMap';
 import { eventsAPI, categoriesAPI } from '../services/api';
 import styles from './Home.module.css';
 
 export default function Home() {
   const navigate = useNavigate();
   const [upcomingEvents, setUpcomingEvents] = useState([]);
+  const [allEvents, setAllEvents] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -22,7 +24,9 @@ export default function Home() {
           eventsAPI.getAll(),
           categoriesAPI.getAll()
         ]);
-        // Get first 8 events
+        // Store all events for the map
+        setAllEvents(eventsData);
+        // Get first 8 events for display
         setUpcomingEvents(eventsData.slice(0, 8));
         setCategories(categoriesData);
       } catch (err) {
@@ -99,6 +103,16 @@ export default function Home() {
                 </Link>
               ))}
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* Events Map Section */}
+      {allEvents.length > 0 && (
+        <section className={styles.section}>
+          <div className={styles.container}>
+            <h2 className={styles.sectionTitle}>Events near you</h2>
+            <EventMap events={allEvents} height="600px" zoom={4} />
           </div>
         </section>
       )}

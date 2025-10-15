@@ -146,10 +146,16 @@ def seed_database():
             if "locationCity" in event_data:
                 event_data["location_city"] = event_data.pop("locationCity")
 
+            # Extract latitude and longitude if present
+            latitude = event_data.pop("latitude", None)
+            longitude = event_data.pop("longitude", None)
+
             # Create event
             event = Event(
                 **event_data,
-                date=event_date
+                date=event_date,
+                latitude=latitude,
+                longitude=longitude
             )
 
             # Add attendees relationships

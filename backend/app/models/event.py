@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, Date, Time, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, Date, Time, ForeignKey, Float
 from sqlalchemy.orm import relationship
 from ..database import Base
 
@@ -16,6 +16,8 @@ class Event(Base):
     organizer_id = Column(Integer, ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
     location = Column(String)
     location_city = Column(String, index=True)
+    latitude = Column(Float, nullable=True)
+    longitude = Column(Float, nullable=True)
     max_attendees = Column(Integer, nullable=True)
     price = Column(String)
     is_online = Column(Boolean, default=False, index=True)

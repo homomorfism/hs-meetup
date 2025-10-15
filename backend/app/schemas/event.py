@@ -11,6 +11,8 @@ class EventBase(BaseModel):
     duration: Optional[str] = None
     location: Optional[str] = None
     location_city: Optional[str] = None
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
     price: str = "Free"
     is_online: bool = False
     category: str
@@ -30,6 +32,8 @@ class EventUpdate(BaseModel):
     duration: Optional[str] = None
     location: Optional[str] = None
     location_city: Optional[str] = None
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
     price: Optional[str] = None
     is_online: Optional[bool] = None
     category: Optional[str] = None

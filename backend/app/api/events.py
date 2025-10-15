@@ -7,6 +7,7 @@ from ..models import Event, User, Group
 from ..schemas.event import Event as EventSchema, EventCreate, EventUpdate
 from ..schemas.user import User as UserSchema
 from ..core.dependencies import get_current_active_user
+from ..services.geocoding import geocode_event_location
 
 router = APIRouter(prefix="/events", tags=["Events"])
 
@@ -83,7 +84,16 @@ def create_event(
     if group.organizer_id != current_user.id:
         raise HTTPException(status_code=403, detail="Only group organizers can create events")
 
-    db_event = Event(**event.model_dump(), organizer_id=current_user.id)
+    # Automatically geocode the event location
+    event_data = event.model_dump()
+    if not event.is_online and event.location:
+        coords = geocode_event_location(event.location, event.location_city or "")
+        if coords:
+            event_data["latitude"] = coords[0]
+            event_data["longitude"] = coords[1]
+            print(f"✓ Geocoded event location: {coords}")
+
+    db_event = Event(**event_data, organizer_id=current_user.id)
     db.add(db_event)
     db.commit()
     db.refresh(db_event)
@@ -106,6 +116,19 @@ def update_event(
         raise HTTPException(status_code=403, detail="Not authorized")
 
     update_data = event_update.model_dump(exclude_unset=True)
+
+    # If location or city is being updated, re-geocode
+    if ("location" in update_data or "location_city" in update_data) and not db_event.is_online:
+        location = update_data.get("location", db_event.location)
+        location_city = update_data.get("location_city", db_event.location_city)
+
+        if location:
+            coords = geocode_event_location(location, location_city or "")
+            if coords:
+                update_data["latitude"] = coords[0]
+                update_data["longitude"] = coords[1]
+                print(f"✓ Re-geocoded event location: {coords}")
+
     for field, value in update_data.items():
         setattr(db_event, field, value)
 

@@ -11,6 +11,7 @@ pydantic
 pydantic-settings
 pyrootutils
 bcrypt<4
+requests
 
 # Testing dependencies
 pytest

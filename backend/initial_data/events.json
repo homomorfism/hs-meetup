@@ -36,7 +36,9 @@
     "price": "Free",
     "isOnline": false,
     "category": "Technology",
-    "image": "https://images.unsplash.com/photo-1555255707-c07966088b7b?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1555255707-c07966088b7b?w=800&h=400&fit=crop",
+    "latitude": 37.7749,
+    "longitude": -122.4194
   },
   {
     "id": 2,
@@ -60,7 +62,9 @@
     "price": "Free",
     "isOnline": false,
     "category": "Travel & Outdoor",
-    "image": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&h=400&fit=crop",
+    "latitude": 47.4957,
+    "longitude": -121.7868
   },
   {
     "id": 3,
@@ -81,7 +85,9 @@
     "price": "$35",
     "isOnline": false,
     "category": "Arts & Culture",
-    "image": "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&h=400&fit=crop",
+    "latitude": 30.2672,
+    "longitude": -97.7431
   },
   {
     "id": 4,
@@ -111,7 +117,9 @@
     "price": "$60",
     "isOnline": false,
     "category": "Food & Drink",
-    "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&h=400&fit=crop",
+    "latitude": 40.7128,
+    "longitude": -74.006
   },
   {
     "id": 5,
@@ -132,7 +140,9 @@
     "price": "Free",
     "isOnline": false,
     "category": "Sports & Fitness",
-    "image": "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&h=400&fit=crop",
+    "latitude": 34.0522,
+    "longitude": -118.2437
   },
   {
     "id": 6,
@@ -160,7 +170,9 @@
     "price": "$5",
     "isOnline": false,
     "category": "Games",
-    "image": "https://images.unsplash.com/photo-1566694271355-9ead56467fd0?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1566694271355-9ead56467fd0?w=800&h=400&fit=crop",
+    "latitude": 41.8781,
+    "longitude": -87.6298
   },
   {
     "id": 7,
@@ -199,7 +211,9 @@
     "price": "Free",
     "isOnline": false,
     "category": "Books & Writing",
-    "image": "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=800&h=400&fit=crop",
+    "latitude": 42.3601,
+    "longitude": -71.0589
   },
   {
     "id": 8,
@@ -233,7 +247,9 @@
     "price": "Free",
     "isOnline": false,
     "category": "Film & Photography",
-    "image": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&h=400&fit=crop",
+    "latitude": 45.5152,
+    "longitude": -122.6784
   },
   {
     "id": 9,
@@ -255,7 +271,9 @@
     "price": "Free",
     "isOnline": false,
     "category": "Music",
-    "image": "https://images.unsplash.com/photo-1598653222000-6b7b7a552625?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1598653222000-6b7b7a552625?w=800&h=400&fit=crop",
+    "latitude": 25.7617,
+    "longitude": -80.1918
   },
   {
     "id": 10,
@@ -293,7 +311,9 @@
     "price": "Free",
     "isOnline": false,
     "category": "Business & Career",
-    "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop",
+    "latitude": 37.7749,
+    "longitude": -122.4194
   },
   {
     "id": 11,
@@ -317,7 +337,9 @@
     "price": "$15",
     "isOnline": false,
     "category": "Health & Wellness",
-    "image": "https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=800&h=400&fit=crop",
+    "latitude": 32.7157,
+    "longitude": -117.1611
   },
   {
     "id": 12,
@@ -342,7 +364,9 @@
     "price": "$10",
     "isOnline": false,
     "category": "Games",
-    "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&h=400&fit=crop",
+    "latitude": 39.7392,
+    "longitude": -104.9903
   },
   {
     "id": 13,
@@ -371,7 +395,9 @@
     "price": "$75",
     "isOnline": false,
     "category": "Food & Drink",
-    "image": "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&h=400&fit=crop",
+    "latitude": 38.2975,
+    "longitude": -122.2869
   },
   {
     "id": 14,
@@ -392,7 +418,9 @@
     "price": "$20",
     "isOnline": false,
     "category": "Sports & Fitness",
-    "image": "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&h=400&fit=crop",
+    "latitude": 40.015,
+    "longitude": -105.2705
   },
   {
     "id": 15,
@@ -415,7 +443,9 @@
     "price": "Free",
     "isOnline": false,
     "category": "Arts & Culture",
-    "image": "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&h=400&fit=crop",
+    "latitude": 40.7128,
+    "longitude": -74.006
   },
   {
     "id": 16,
@@ -453,7 +483,9 @@
     "price": "Free",
     "isOnline": true,
     "category": "Technology",
-    "image": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=400&fit=crop",
+    "latitude": null,
+    "longitude": null
   },
   {
     "id": 17,
@@ -473,7 +505,9 @@
     "price": "Free",
     "isOnline": false,
     "category": "Sports & Fitness",
-    "image": "https://images.unsplash.com/photo-1472740378865-80aab8e73251?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1472740378865-80aab8e73251?w=800&h=400&fit=crop",
+    "latitude": 30.2672,
+    "longitude": -97.7431
   },
   {
     "id": 21,
@@ -494,7 +528,9 @@
     "price": "Free",
     "isOnline": true,
     "category": "Technology",
-    "image": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&h=400&fit=crop",
+    "latitude": null,
+    "longitude": null
   },
   {
     "id": 22,
@@ -528,7 +564,9 @@
     "price": "$30",
     "isOnline": false,
     "category": "Health & Wellness",
-    "image": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&h=400&fit=crop",
+    "latitude": 32.7157,
+    "longitude": -117.1611
   },
   {
     "id": 23,
@@ -550,7 +588,9 @@
     "price": "$10",
     "isOnline": false,
     "category": "Games",
-    "image": "https://images.unsplash.com/photo-1612404730960-5c71577fca11?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1612404730960-5c71577fca11?w=800&h=400&fit=crop",
+    "latitude": 41.8781,
+    "longitude": -87.6298
   },
   {
     "id": 24,
@@ -572,7 +612,9 @@
     "price": "$45",
     "isOnline": false,
     "category": "Food & Drink",
-    "image": "https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=800&h=400&fit=crop",
+    "latitude": 40.7128,
+    "longitude": -74.006
   },
   {
     "id": 25,
@@ -604,7 +646,9 @@
     "price": "$40",
     "isOnline": false,
     "category": "Travel & Outdoor",
-    "image": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=400&fit=crop",
+    "latitude": 47.6062,
+    "longitude": -122.3321
   },
   {
     "id": 26,
@@ -636,7 +680,9 @@
     "price": "$20",
     "isOnline": false,
     "category": "Arts & Culture",
-    "image": "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&h=400&fit=crop",
+    "latitude": 30.2672,
+    "longitude": -97.7431
   },
   {
     "id": 27,
@@ -670,7 +716,9 @@
     "price": "Free",
     "isOnline": false,
     "category": "Business & Career",
-    "image": "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=800&h=400&fit=crop",
+    "latitude": 37.7749,
+    "longitude": -122.4194
   },
   {
     "id": 28,
@@ -696,7 +744,9 @@
     "price": "$25",
     "isOnline": false,
     "category": "Sports & Fitness",
-    "image": "https://images.unsplash.com/photo-1532444458054-01a7dd3e9fca?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1532444458054-01a7dd3e9fca?w=800&h=400&fit=crop",
+    "latitude": 34.0522,
+    "longitude": -118.2437
   },
   {
     "id": 29,
@@ -733,7 +783,9 @@
     "price": "$8",
     "isOnline": false,
     "category": "Games",
-    "image": "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=800&h=400&fit=crop",
+    "latitude": 39.7392,
+    "longitude": -104.9903
   },
   {
     "id": 30,
@@ -754,7 +806,9 @@
     "price": "$50",
     "isOnline": false,
     "category": "Film & Photography",
-    "image": "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=800&h=400&fit=crop",
+    "latitude": 45.5152,
+    "longitude": -122.6784
   },
   {
     "id": 31,
@@ -778,7 +832,9 @@
     "price": "Free",
     "isOnline": false,
     "category": "Books & Writing",
-    "image": "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&h=400&fit=crop",
+    "latitude": 42.3601,
+    "longitude": -71.0589
   },
   {
     "id": 32,
@@ -813,7 +869,9 @@
     "price": "$25",
     "isOnline": true,
     "category": "Music",
-    "image": "https://images.unsplash.com/photo-1598653222000-6b7b7a552625?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1598653222000-6b7b7a552625?w=800&h=400&fit=crop",
+    "latitude": null,
+    "longitude": null
   },
   {
     "id": 33,
@@ -833,7 +891,9 @@
     "price": "$35",
     "isOnline": false,
     "category": "Sports & Fitness",
-    "image": "https://images.unsplash.com/photo-1564769625905-50e93615e769?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1564769625905-50e93615e769?w=800&h=400&fit=crop",
+    "latitude": 40.015,
+    "longitude": -105.2705
   },
   {
     "id": 35,
@@ -865,7 +925,9 @@
     "price": "$20",
     "isOnline": false,
     "category": "Arts & Culture",
-    "image": "https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?w=800&h=400&fit=crop",
+    "latitude": 25.7617,
+    "longitude": -80.1918
   },
   {
     "id": 36,
@@ -885,7 +947,9 @@
     "price": "Free",
     "isOnline": false,
     "category": "Health & Wellness",
-    "image": "https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=800&h=400&fit=crop",
+    "latitude": 32.7157,
+    "longitude": -117.1611
   },
   {
     "id": 37,
@@ -922,7 +986,9 @@
     "price": "$75",
     "isOnline": false,
     "category": "Business & Career",
-    "image": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=400&fit=crop",
+    "latitude": 40.7128,
+    "longitude": -74.006
   },
   {
     "id": 38,
@@ -946,7 +1012,9 @@
     "price": "Free",
     "isOnline": false,
     "category": "Travel & Outdoor",
-    "image": "https://images.unsplash.com/photo-1544191696-102dbdaeeaa0?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1544191696-102dbdaeeaa0?w=800&h=400&fit=crop",
+    "latitude": 47.5301,
+    "longitude": -122.0326
   },
   {
     "id": 39,
@@ -972,7 +1040,9 @@
     "price": "$18",
     "isOnline": false,
     "category": "Arts & Culture",
-    "image": "https://images.unsplash.com/photo-1508807526345-15e9b5f4eaff?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1508807526345-15e9b5f4eaff?w=800&h=400&fit=crop",
+    "latitude": 30.2672,
+    "longitude": -97.7431
   },
   {
     "id": 40,
@@ -1005,7 +1075,9 @@
     "price": "Free",
     "isOnline": true,
     "category": "Technology",
-    "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=400&fit=crop",
+    "latitude": null,
+    "longitude": null
   },
   {
     "id": 41,
@@ -1023,7 +1095,9 @@
     "price": "Free (bring dish)",
     "isOnline": false,
     "category": "Social Activities",
-    "image": "https://images.unsplash.com/photo-1574672280600-4accfa5b6f98?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1574672280600-4accfa5b6f98?w=800&h=400&fit=crop",
+    "latitude": 40.7128,
+    "longitude": -74.006
   },
   {
     "id": 42,
@@ -1045,7 +1119,9 @@
     "price": "Free",
     "isOnline": false,
     "category": "Travel & Outdoor",
-    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=400&fit=crop",
+    "latitude": 47.4244,
+    "longitude": -121.4132
   },
   {
     "id": 43,
@@ -1072,7 +1148,9 @@
     "price": "$20",
     "isOnline": false,
     "category": "Games",
-    "image": "https://images.unsplash.com/photo-1617802690992-15d93263d3a9?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1617802690992-15d93263d3a9?w=800&h=400&fit=crop",
+    "latitude": 39.7392,
+    "longitude": -104.9903
   },
   {
     "id": 45,
@@ -1097,7 +1175,9 @@
     "price": "$45",
     "isOnline": false,
     "category": "Arts & Culture",
-    "image": "https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=800&h=400&fit=crop",
+    "latitude": 30.2672,
+    "longitude": -97.7431
   },
   {
     "id": 46,
@@ -1122,7 +1202,9 @@
     "price": "$20",
     "isOnline": false,
     "category": "Sports & Fitness",
-    "image": "https://images.unsplash.com/photo-1521537634581-0dced2fee2ef?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1521537634581-0dced2fee2ef?w=800&h=400&fit=crop",
+    "latitude": 34.0522,
+    "longitude": -118.2437
   },
   {
     "id": 48,
@@ -1150,7 +1232,9 @@
     "price": "Free",
     "isOnline": true,
     "category": "Business & Career",
-    "image": "https://images.unsplash.com/photo-1554224311-beee460c201f?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1554224311-beee460c201f?w=800&h=400&fit=crop",
+    "latitude": null,
+    "longitude": null
   },
   {
     "id": 49,
@@ -1174,7 +1258,9 @@
     "price": "$30",
     "isOnline": false,
     "category": "Film & Photography",
-    "image": "https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=800&h=400&fit=crop",
+    "latitude": 45.5152,
+    "longitude": -122.6784
   },
   {
     "id": 50,
@@ -1206,6 +1292,8 @@
     "price": "Free",
     "isOnline": false,
     "category": "Books & Writing",
-    "image": "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=800&h=400&fit=crop"
+    "image": "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=800&h=400&fit=crop",
+    "latitude": 42.3601,
+    "longitude": -71.0589
   }
 ]

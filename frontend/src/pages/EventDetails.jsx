@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import EventCard from '../components/EventCard';
 import UserCard from '../components/UserCard';
+import EventMap from '../components/EventMap';
 import { eventsAPI, groupsAPI, usersAPI } from '../services/api';
 import styles from './EventDetails.module.css';
 
@@ -96,6 +97,14 @@ export default function EventDetails() {
               <h2>Details</h2>
               <p className={styles.description}>{event.description}</p>
             </div>
+
+            {/* Event Location Map */}
+            {!event.is_online && event.latitude && event.longitude && (
+              <div className={styles.section}>
+                <h2>Location</h2>
+                <EventMap events={[event]} height="400px" zoom={15} />
+              </div>
+            )}
 
             <div className={styles.section}>
               <h2>Attendees ({event.attendees_count || 0})</h2>
