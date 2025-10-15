@@ -103,43 +103,50 @@ export default function FindEvents() {
     fetchEvents();
   }, [debouncedKeyword, debouncedLocation, filters.category, filters.isOnline, filters.price]);
 
-  // Separate effect for recording search history (only after debounced values settle)
-  useEffect(() => {
-    // Don't record on initial load or if not authenticated
-    if (!isAuthenticated || filteredEvents.length === 0) {
+  // Function to record search history (called only on submit)
+  const recordSearchHistory = async () => {
+    // Don't record if not authenticated
+    if (!isAuthenticated) {
+      console.log('Not authenticated, skipping search history recording');
       return;
     }
 
     // Only record if there are any filters
-    if (!debouncedKeyword && !debouncedLocation && !filters.category && !filters.isOnline && !filters.price) {
+    if (!filters.keyword && !filters.location && !filters.category && !filters.isOnline && !filters.price) {
+      console.log('No filters set, skipping search history recording');
       return;
     }
 
-    const recordHistory = async () => {
-      try {
-        const historyData = {
-          keyword: debouncedKeyword || null,
-          location: debouncedLocation || null,
-          category: filters.category || null,
-          is_online: filters.isOnline === 'online' ? true : filters.isOnline === 'in-person' ? false : null,
-          price: filters.price || null,
-        };
-        const newHistory = await searchHistoryAPI.create(historyData);
-        // Update history list, removing duplicates and keeping only recent 5
-        setSearchHistory(prev => {
-          const filtered = prev.filter(h => h.id !== newHistory.id);
-          return [newHistory, ...filtered].slice(0, 5);
-        });
-      } catch (err) {
-        console.error('Error recording search history:', err);
-      }
-    };
+    console.log('Recording search history:', filters);
 
-    recordHistory();
-  }, [debouncedKeyword, debouncedLocation, filters.category, filters.isOnline, filters.price, isAuthenticated]);
+    try {
+      const historyData = {
+        keyword: filters.keyword || null,
+        location: filters.location || null,
+        category: filters.category || null,
+        is_online: filters.isOnline === 'online' ? true : filters.isOnline === 'in-person' ? false : null,
+        price: filters.price || null,
+      };
+      const newHistory = await searchHistoryAPI.create(historyData);
+      console.log('Search history recorded successfully:', newHistory);
+      // Update history list, removing duplicates and keeping only recent 5
+      setSearchHistory(prev => {
+        const filtered = prev.filter(h => h.id !== newHistory.id);
+        return [newHistory, ...filtered].slice(0, 5);
+      });
+    } catch (err) {
+      console.error('Error recording search history:', err);
+    }
+  };
 
   const handleSearchChange = ({ keyword, location }) => {
     setFilters(prev => ({ ...prev, keyword, location }));
+  };
+
+  const handleSearchSubmit = ({ keyword, location }) => {
+    // Record to search history when user presses Enter
+    console.log('Search submitted:', { keyword, location, isAuthenticated });
+    recordSearchHistory();
   };
 
   const handleSaveSearch = async () => {
@@ -239,6 +246,7 @@ export default function FindEvents() {
             keyword={filters.keyword}
             location={filters.location}
             onChange={handleSearchChange}
+            onSubmit={handleSearchSubmit}
           />
 
           <div className={styles.savedSearchActions}>

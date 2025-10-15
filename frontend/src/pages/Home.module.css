@@ -2,6 +2,19 @@
   min-height: 100vh;
 }
 
+/* Location Banner */
+.locationBanner {
+  background: #4CAF50;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.locationBanner p {
+  margin: 0;
+}
+
 /* Hero Section */
 .hero {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);

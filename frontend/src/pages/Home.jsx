@@ -3,7 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import SearchBar from '../components/SearchBar';
 import EventCard from '../components/EventCard';
 import EventMap from '../components/EventMap';
+import LocationModal from '../components/LocationModal';
 import { eventsAPI, categoriesAPI } from '../services/api';
+import { getUserLocation, saveUserLocation, getSavedUserLocation } from '../services/geolocation';
 import styles from './Home.module.css';
 
 export default function Home() {
@@ -15,30 +17,112 @@ export default function Home() {
   const [error, setError] = useState(null);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [searchLocation, setSearchLocation] = useState('');
+  const [userLocation, setUserLocation] = useState(null);
+  const [locationPermissionDenied, setLocationPermissionDenied] = useState(false);
+  const [importing, setImporting] = useState(false);
+  const [showLocationModal, setShowLocationModal] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const [eventsData, categoriesData] = await Promise.all([
-          eventsAPI.getAll(),
-          categoriesAPI.getAll()
-        ]);
-        // Store all events for the map
-        setAllEvents(eventsData);
-        // Get first 8 events for display
-        setUpcomingEvents(eventsData.slice(0, 8));
-        setCategories(categoriesData);
-      } catch (err) {
-        setError(err.message);
-        console.error('Error fetching data:', err);
-      } finally {
+    const initializeLocation = async () => {
+      // Try to get saved location first
+      const savedLocation = getSavedUserLocation();
+
+      if (savedLocation) {
+        setUserLocation(savedLocation);
+        setSearchLocation(savedLocation.city || '');
+        fetchData(savedLocation);
+      } else {
+        // Show location selection modal
+        setShowLocationModal(true);
         setLoading(false);
       }
     };
 
-    fetchData();
+    initializeLocation();
   }, []);
+
+  const handleLocationSelected = async (location) => {
+    setShowLocationModal(false);
+    setLoading(true);
+    setUserLocation(location);
+    setSearchLocation(location.city || '');
+    saveUserLocation(location);
+
+    // Auto-import events
+    await handleImportEvents(location);
+  };
+
+  const handleUseGeolocation = async () => {
+    setShowLocationModal(false);
+    setLoading(true);
+
+    try {
+      const location = await getUserLocation();
+      setUserLocation(location);
+      setSearchLocation(location.city || '');
+      saveUserLocation(location);
+
+      // Auto-import events
+      await handleImportEvents(location);
+    } catch (err) {
+      console.error('Location error:', err);
+      setLocationPermissionDenied(true);
+      alert('Location access denied. Please select a city manually.');
+      setShowLocationModal(true);
+      setLoading(false);
+    }
+  };
+
+  const handleImportEvents = async (location = userLocation) => {
+    if (!location || importing) return;
+
+    setImporting(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL || 'http://localhost:10001/api'}/meetup-sync/import-by-geolocation?latitude=${location.latitude}&longitude=${location.longitude}&limit=50`,
+        { method: 'POST' }
+      );
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log(`✓ Imported ${result.imported_count} events near ${location.city || 'you'}`);
+        // Refresh events
+        await fetchData(location);
+      } else {
+        console.error('Failed to import events');
+        await fetchData(location);
+      }
+    } catch (error) {
+      console.error('Import error:', error);
+      await fetchData(location);
+    } finally {
+      setImporting(false);
+    }
+  };
+
+  const fetchData = async (location) => {
+    try {
+      setLoading(true);
+
+      // Don't filter by city name - show all imported events
+      // (they're already filtered by geolocation radius on import)
+      const [eventsData, categoriesData] = await Promise.all([
+        eventsAPI.getAll(),
+        categoriesAPI.getAll()
+      ]);
+
+      // Store all events for the map
+      setAllEvents(eventsData);
+      // Get first 8 events for display
+      setUpcomingEvents(eventsData.slice(0, 8));
+      setCategories(categoriesData);
+    } catch (err) {
+      setError(err.message);
+      console.error('Error fetching data:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSearchChange = ({ keyword, location }) => {
     setSearchKeyword(keyword);
@@ -55,7 +139,11 @@ export default function Home() {
   if (loading) {
     return (
       <div className={styles.home}>
-        <div className={styles.loading}>Loading...</div>
+        <div className={styles.loading}>
+          {!userLocation && !locationPermissionDenied && 'Getting your location...'}
+          {!userLocation && locationPermissionDenied && 'Loading events...'}
+          {userLocation && 'Loading events...'}
+        </div>
       </div>
     );
   }
@@ -70,6 +158,38 @@ export default function Home() {
 
   return (
     <div className={styles.home}>
+      {/* Location Selection Modal */}
+      {showLocationModal && (
+        <LocationModal
+          onSelectLocation={handleLocationSelected}
+          onUseGeolocation={handleUseGeolocation}
+        />
+      )}
+
+      {/* Location Banner */}
+      {userLocation && (
+        <div className={styles.locationBanner}>
+          <p>
+            📍 Showing events in {userLocation.city || 'your area'}
+            <button
+              onClick={() => setShowLocationModal(true)}
+              style={{
+                marginLeft: '1rem',
+                padding: '0.25rem 0.75rem',
+                borderRadius: '4px',
+                border: '1px solid white',
+                background: 'transparent',
+                color: 'white',
+                cursor: 'pointer',
+                fontSize: '0.875rem'
+              }}
+            >
+              Change Location
+            </button>
+          </p>
+        </div>
+      )}
+
       {/* Hero Section */}
       <section className={styles.hero}>
         <div className={styles.heroContent}>
@@ -112,7 +232,12 @@ export default function Home() {
         <section className={styles.section}>
           <div className={styles.container}>
             <h2 className={styles.sectionTitle}>Events near you</h2>
-            <EventMap events={allEvents} height="600px" zoom={4} />
+            <EventMap
+              events={allEvents}
+              height="600px"
+              zoom={12}
+              center={userLocation ? { lat: userLocation.latitude, lng: userLocation.longitude } : undefined}
+            />
           </div>
         </section>
       )}

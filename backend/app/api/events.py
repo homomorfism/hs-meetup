@@ -14,7 +14,11 @@ router = APIRouter(prefix="/events", tags=["Events"])
 
 def add_attendees_count(event):
     """Helper function to add computed attendees_count to event object"""
-    event.attendees_count = len(event.attendees)
+    # Use external_attendees_count from Meetup if available, otherwise count actual attendees
+    if hasattr(event, 'external_attendees_count') and event.external_attendees_count is not None:
+        event.attendees_count = event.external_attendees_count
+    else:
+        event.attendees_count = len(event.attendees)
     return event
 
 

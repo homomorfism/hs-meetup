@@ -19,6 +19,7 @@ class Event(Base):
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
     max_attendees = Column(Integer, nullable=True)
+    external_attendees_count = Column(Integer, nullable=True)  # For Meetup RSVP count
     price = Column(String)
     is_online = Column(Boolean, default=False, index=True)
     category = Column(String, nullable=False, index=True)

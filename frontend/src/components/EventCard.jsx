@@ -7,10 +7,20 @@ export default function EventCard({ event }) {
     return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
   };
 
+  const handleImageError = (e) => {
+    // Fallback to Unsplash if Meetup image fails to load
+    e.target.src = `https://source.unsplash.com/400x300/?${event.category || 'event'}`;
+  };
+
   return (
     <Link to={`/events/${event.id}`} className={styles.card}>
       <div className={styles.imageContainer}>
-        <img src={event.image || `https://source.unsplash.com/400x300/?event`} alt={event.title} className={styles.image} />
+        <img
+          src={event.image || `https://source.unsplash.com/400x300/?${event.category || 'event'}`}
+          alt={event.title}
+          className={styles.image}
+          onError={handleImageError}
+        />
         {event.is_online && <span className={styles.onlineBadge}>Online</span>}
       </div>
       <div className={styles.content}>

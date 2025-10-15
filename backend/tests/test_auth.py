@@ -15,7 +15,7 @@ class TestSignup:
                 "email": "newuser@example.com",
                 "password": "password123",
                 "name": "New User",
-                "location": "San Francisco",
+                "location": "Barcelona",
                 "bio": "Test bio"
             }
         )

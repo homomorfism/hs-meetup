@@ -67,10 +67,27 @@ export default function EventDetails() {
     });
   };
 
+  const handleHeroImageError = (e) => {
+    e.target.src = `https://source.unsplash.com/1200x400/?${event.category || 'event'}`;
+  };
+
+  const handleGroupImageError = (e) => {
+    e.target.src = `https://source.unsplash.com/200x200/?community`;
+  };
+
+  const handleOrganizerImageError = (e) => {
+    e.target.src = `https://i.pravatar.cc/150?u=${organizer?.id || 'default'}`;
+  };
+
   return (
     <div className={styles.eventDetails}>
       <div className={styles.hero}>
-        <img src={event.image} alt={event.title} className={styles.heroImage} />
+        <img
+          src={event.image || `https://source.unsplash.com/1200x400/?${event.category || 'event'}`}
+          alt={event.title}
+          className={styles.heroImage}
+          onError={handleHeroImageError}
+        />
       </div>
 
       <div className={styles.container}>
@@ -142,7 +159,12 @@ export default function EventDetails() {
               <div className={styles.card}>
                 <h3>Hosted by</h3>
                 <Link to={`/groups/${group.id}`} className={styles.groupLink}>
-                  <img src={group.image || `https://source.unsplash.com/200x200/?community`} alt={group.name} className={styles.groupImage} />
+                  <img
+                    src={group.image || `https://source.unsplash.com/200x200/?community`}
+                    alt={group.name}
+                    className={styles.groupImage}
+                    onError={handleGroupImageError}
+                  />
                   <div>
                     <div className={styles.groupName}>{group.name}</div>
                     <div className={styles.groupMembers}>{(group.members_count || 0).toLocaleString()} members</div>
@@ -155,7 +177,12 @@ export default function EventDetails() {
               <div className={styles.card}>
                 <h3>Organizer</h3>
                 <Link to={`/members/${organizer.id}`} className={styles.organizerLink}>
-                  <img src={organizer.avatar} alt={organizer.name} className={styles.organizerAvatar} />
+                  <img
+                    src={organizer.avatar || `https://i.pravatar.cc/150?u=${organizer.id}`}
+                    alt={organizer.name}
+                    className={styles.organizerAvatar}
+                    onError={handleOrganizerImageError}
+                  />
                   <span>{organizer.name}</span>
                 </Link>
               </div>

@@ -1,6 +1,6 @@
 import styles from './SearchBar.module.css';
 
-export default function SearchBar({ keyword, location, onChange }) {
+export default function SearchBar({ keyword, location, onChange, onSubmit }) {
   const handleKeywordChange = (e) => {
     onChange({ keyword: e.target.value, location });
   };
@@ -9,8 +9,15 @@ export default function SearchBar({ keyword, location, onChange }) {
     onChange({ keyword, location: e.target.value });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (onSubmit) {
+      onSubmit({ keyword, location });
+    }
+  };
+
   return (
-    <div className={styles.searchBar}>
+    <form className={styles.searchBar} onSubmit={handleSubmit}>
       <div className={styles.inputGroup}>
         <input
           type="text"
@@ -29,6 +36,6 @@ export default function SearchBar({ keyword, location, onChange }) {
           className={styles.input}
         />
       </div>
-    </div>
+    </form>
   );
 }
