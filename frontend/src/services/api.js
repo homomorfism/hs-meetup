@@ -266,3 +266,81 @@ export const chatAPI = {
     return handleResponse(response);
   },
 };
+
+// Saved Searches API
+export const savedSearchesAPI = {
+  getAll: async () => {
+    const response = await fetch(`${API_BASE_URL}/saved-searches`, {
+      headers: createHeaders(true),
+    });
+    return handleResponse(response);
+  },
+
+  getById: async (id) => {
+    const response = await fetch(`${API_BASE_URL}/saved-searches/${id}`, {
+      headers: createHeaders(true),
+    });
+    return handleResponse(response);
+  },
+
+  create: async (searchData) => {
+    const response = await fetch(`${API_BASE_URL}/saved-searches`, {
+      method: 'POST',
+      headers: createHeaders(true),
+      body: JSON.stringify(searchData),
+    });
+    return handleResponse(response);
+  },
+
+  update: async (id, searchData) => {
+    const response = await fetch(`${API_BASE_URL}/saved-searches/${id}`, {
+      method: 'PUT',
+      headers: createHeaders(true),
+      body: JSON.stringify(searchData),
+    });
+    return handleResponse(response);
+  },
+
+  delete: async (id) => {
+    const response = await fetch(`${API_BASE_URL}/saved-searches/${id}`, {
+      method: 'DELETE',
+      headers: createHeaders(true),
+    });
+    return handleResponse(response);
+  },
+};
+
+// Search History API
+export const searchHistoryAPI = {
+  getAll: async (limit = 10) => {
+    const response = await fetch(`${API_BASE_URL}/search-history?limit=${limit}`, {
+      headers: createHeaders(true),
+    });
+    return handleResponse(response);
+  },
+
+  create: async (searchData) => {
+    const response = await fetch(`${API_BASE_URL}/search-history`, {
+      method: 'POST',
+      headers: createHeaders(true),
+      body: JSON.stringify(searchData),
+    });
+    return handleResponse(response);
+  },
+
+  delete: async (id) => {
+    const response = await fetch(`${API_BASE_URL}/search-history/${id}`, {
+      method: 'DELETE',
+      headers: createHeaders(true),
+    });
+    return handleResponse(response);
+  },
+
+  clear: async () => {
+    const response = await fetch(`${API_BASE_URL}/search-history`, {
+      method: 'DELETE',
+      headers: createHeaders(true),
+    });
+    return handleResponse(response);
+  },
+};

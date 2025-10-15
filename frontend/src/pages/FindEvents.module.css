@@ -74,6 +74,258 @@
   margin: 0.5rem 0;
 }
 
+/* Saved Searches */
+.savedSearchActions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.saveSearchBtn,
+.savedSearchBtn,
+.historyBtn {
+  padding: 0.5rem 1rem;
+  border: 2px solid #00798a;
+  background: white;
+  color: #00798a;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.historyBtn {
+  border-color: #757575;
+  color: #757575;
+}
+
+.saveSearchBtn:hover,
+.savedSearchBtn:hover {
+  background: #00798a;
+  color: white;
+}
+
+.historyBtn:hover {
+  background: #757575;
+  color: white;
+}
+
+.savedSearchDropdown {
+  position: relative;
+}
+
+.savedSearchMenu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  background: white;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 350px;
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.savedSearchItem {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.savedSearchItem:last-child {
+  border-bottom: none;
+}
+
+.loadSearchBtn {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  background: white;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.loadSearchBtn:hover {
+  background: #f7f7f7;
+}
+
+.searchName {
+  display: block;
+  font-weight: 600;
+  color: #1f1f1f;
+  margin-bottom: 0.25rem;
+}
+
+.searchDetails {
+  display: block;
+  font-size: 0.875rem;
+  color: #757575;
+}
+
+.deleteSearchBtn {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: transparent;
+  color: #757575;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.deleteSearchBtn:hover {
+  color: #f63854;
+}
+
+.historyHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid #e6e6e6;
+  background: #f7f7f7;
+}
+
+.historyTitle {
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: #1f1f1f;
+}
+
+.clearHistoryBtn {
+  padding: 0.25rem 0.75rem;
+  border: none;
+  background: transparent;
+  color: #00798a;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.clearHistoryBtn:hover {
+  background: #00798a;
+  color: white;
+}
+
+/* Modal */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+}
+
+.modalTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  color: #1f1f1f;
+}
+
+.modalDescription {
+  color: #757575;
+  margin: 0 0 1.5rem 0;
+  font-size: 0.9375rem;
+}
+
+.modalError {
+  background: #fee;
+  border: 1px solid #f63854;
+  color: #c00;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.modalInput {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e6e6e6;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+}
+
+.modalInput:focus {
+  outline: none;
+  border-color: #00798a;
+}
+
+.modalActions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  justify-content: flex-end;
+}
+
+.modalCancel,
+.modalSave {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.modalCancel {
+  background: #f0f0f0;
+  color: #1f1f1f;
+}
+
+.modalCancel:hover {
+  background: #e0e0e0;
+}
+
+.modalSave {
+  background: #00798a;
+  color: white;
+}
+
+.modalSave:hover {
+  background: #005f6d;
+}
+
+.searchingIndicator {
+  color: #757575;
+  font-weight: 400;
+  font-size: 0.875rem;
+}
+
+.loading,
+.error {
+  padding: 2rem;
+  text-align: center;
+}
+
+.error {
+  color: #f63854;
+}
+
 @media (max-width: 968px) {
   .layout {
     grid-template-columns: 1fr;

@@ -66,3 +66,9 @@ class User(Base):
         secondaryjoin=(id == friendships.c.friend_id),
         backref="friend_of"
     )
+
+    # Saved searches
+    saved_searches = relationship("SavedSearch", back_populates="user", cascade="all, delete-orphan")
+
+    # Search history
+    search_history = relationship("SearchHistory", back_populates="user", cascade="all, delete-orphan")
