@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { usersAPI } from '../services/api';
 import EventCard from '../components/EventCard';
+import GroupCard from '../components/GroupCard';
 import UserCard from '../components/UserCard';
 import styles from './PersonalProfile.module.css';
 
@@ -10,6 +11,7 @@ export default function PersonalProfile() {
   const { user } = useAuth();
   const [organizedEvents, setOrganizedEvents] = useState([]);
   const [attendingEvents, setAttendingEvents] = useState([]);
+  const [groups, setGroups] = useState([]);
   const [friends, setFriends] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -20,15 +22,23 @@ export default function PersonalProfile() {
 
       try {
         setLoading(true);
-        const [organized, attending, friendsList] = await Promise.all([
+        const [organized, attending, userGroups, friendsList] = await Promise.all([
           usersAPI.getEvents(user.id),
           usersAPI.getAttending(user.id),
+          usersAPI.getGroups(user.id).catch(() => []),
           usersAPI.getFriends(user.id).catch(() => []), // Friends endpoint might not exist yet
         ]);
 
         setOrganizedEvents(organized);
         setAttendingEvents(attending);
+        setGroups(userGroups);
         setFriends(friendsList);
+
+        console.log('Profile data loaded:', {
+          groups: userGroups.length,
+          upcomingEvents: attending.filter(e => new Date(e.date) >= new Date()).length,
+          friends: friendsList.length
+        });
       } catch (err) {
         setError(err.message);
         console.error('Error fetching user data:', err);
@@ -132,6 +142,19 @@ export default function PersonalProfile() {
           </aside>
 
           <main className={styles.main}>
+            {groups.length > 0 && (
+              <section className={styles.section}>
+                <h2 className={styles.sectionTitle}>
+                  My Groups ({groups.length})
+                </h2>
+                <div className={styles.eventsGrid}>
+                  {groups.map((group) => (
+                    <GroupCard key={group.id} group={group} />
+                  ))}
+                </div>
+              </section>
+            )}
+
             {upcomingEvents.length > 0 && (
               <section className={styles.section}>
                 <h2 className={styles.sectionTitle}>
@@ -176,11 +199,12 @@ export default function PersonalProfile() {
               </section>
             )}
 
-            {upcomingEvents.length === 0 &&
+            {groups.length === 0 &&
+              upcomingEvents.length === 0 &&
               pastEvents.length === 0 &&
               organizedEvents.length === 0 && (
                 <div className={styles.emptyState}>
-                  <h3>No events yet</h3>
+                  <h3>No groups or events yet</h3>
                   <p>Start exploring events and join the community!</p>
                   <Link to="/find" className={styles.findEventsBtn}>
                     Find Events

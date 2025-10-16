@@ -363,6 +363,78 @@ def transform_meetup_event(meetup_event: Dict[str, Any]) -> Optional[Dict[str, A
         return None
 
 
+def get_group_by_urlname(urlname: str) -> Optional[Dict[str, Any]]:
+    """
+    Fetch group details by urlname to get member count and image.
+
+    Args:
+        urlname: Group's URL name (e.g., 'Barcelona-Chess-Meetup')
+
+    Returns:
+        Dict with group info including members_count and image
+    """
+    query = """
+    query($urlname: String!) {
+      groupByUrlname(urlname: $urlname) {
+        id
+        name
+        description
+        memberships {
+          totalCount
+        }
+        keyGroupPhoto {
+          id
+          baseUrl
+        }
+        city
+        state
+        country
+      }
+    }
+    """
+
+    variables = {"urlname": urlname}
+
+    try:
+        response = requests.post(
+            MEETUP_API_URL,
+            json={"query": query, "variables": variables},
+            headers=get_headers(),
+            timeout=30
+        )
+        response.raise_for_status()
+
+        data = response.json()
+
+        if "errors" in data:
+            print(f"GraphQL errors fetching group: {data['errors']}")
+            return None
+
+        group_data = data.get("data", {}).get("groupByUrlname")
+        if not group_data:
+            return None
+
+        # Build image URL
+        photo = group_data.get("keyGroupPhoto")
+        if photo and photo.get("id") and photo.get("baseUrl"):
+            image_url = f"{photo['baseUrl']}{photo['id']}/highres/"
+        else:
+            # Use Unsplash random image as fallback
+            image_url = "https://source.unsplash.com/400x400/?group,people,community"
+
+        return {
+            "name": group_data.get("name"),
+            "description": group_data.get("description", ""),
+            "members_count": group_data.get("memberships", {}).get("totalCount", 0),
+            "image": image_url,
+            "location": f"{group_data.get('city', '')}, {group_data.get('state', '')}".strip(", ")
+        }
+
+    except Exception as e:
+        print(f"Error fetching group from Meetup API: {e}")
+        return None
+
+
 def get_event_by_id(event_id: str) -> Optional[Dict[str, Any]]:
     """
     Fetch a specific event by its Meetup ID.

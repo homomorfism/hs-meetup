@@ -12,11 +12,11 @@ async def lifespan(app: FastAPI):
     # Create database tables
     Base.metadata.create_all(bind=engine)
 
-    # Seed database if needed
-    try:
-        seed_database()
-    except Exception as e:
-        print(f"Database seeding skipped or failed: {e}")
+    # Seed database if needed (DISABLED - using real Meetup API data)
+    # try:
+    #     seed_database()
+    # except Exception as e:
+    #     print(f"Database seeding skipped or failed: {e}")
 
     yield
     # Cleanup on shutdown (if needed)

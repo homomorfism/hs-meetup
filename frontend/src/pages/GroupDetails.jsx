@@ -3,10 +3,12 @@ import { useParams, Link } from 'react-router-dom';
 import EventCard from '../components/EventCard';
 import UserCard from '../components/UserCard';
 import { groupsAPI, usersAPI } from '../services/api';
+import { useAuth } from '../context/AuthContext';
 import styles from './GroupDetails.module.css';
 
 export default function GroupDetails() {
   const { id } = useParams();
+  const { isAuthenticated } = useAuth();
   const [group, setGroup] = useState(null);
   const [organizer, setOrganizer] = useState(null);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
@@ -14,6 +16,7 @@ export default function GroupDetails() {
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isJoined, setIsJoined] = useState(false);
 
   useEffect(() => {
     const fetchGroupData = async () => {
@@ -58,6 +61,27 @@ export default function GroupDetails() {
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  };
+
+  const handleJoin = async () => {
+    if (!isAuthenticated) {
+      alert('Please log in to join groups');
+      return;
+    }
+
+    try {
+      await groupsAPI.join(id);
+      setIsJoined(true);
+      // Update members count
+      setGroup(prev => ({
+        ...prev,
+        members_count: (prev.members_count || 0) + 1
+      }));
+      alert('Successfully joined the group!');
+    } catch (err) {
+      console.error('Error joining group:', err);
+      alert('Failed to join group. Please try again.');
+    }
   };
 
   return (
@@ -119,7 +143,13 @@ export default function GroupDetails() {
 
           <aside className={styles.sidebar}>
             <div className={styles.card}>
-              <button className={styles.joinBtn}>Join group</button>
+              <button
+                className={styles.joinBtn}
+                onClick={handleJoin}
+                disabled={isJoined}
+              >
+                {isJoined ? 'Joined' : 'Join group'}
+              </button>
               <div className={styles.memberInfo}>
                 {(group.members_count || 0).toLocaleString()} members
               </div>

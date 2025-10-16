@@ -322,17 +322,35 @@ def import_events_by_geolocation(
                 group = db.query(Group).filter(Group.name == group_name).first()
 
                 if not group:
+                    # Fetch group details from Meetup API
+                    group_urlname = meetup_event.get("group_urlname")
+                    group_details = None
+                    if group_urlname:
+                        group_details = meetup_api.get_group_by_urlname(group_urlname)
+
                     group = Group(
                         name=group_name,
-                        description=f"Events from {group_name}",
+                        description=group_details.get("description", f"Events from {group_name}")[:500] if group_details else f"Events from {group_name}",
                         category=meetup_event.get("category", "General"),
-                        location=meetup_event.get("location_city", ""),
-                        members_count=0,
+                        location=group_details.get("location", meetup_event.get("location_city", "")) if group_details else meetup_event.get("location_city", ""),
+                        members_count=group_details.get("members_count", 0) if group_details else 0,
+                        image=group_details.get("image") if group_details else None,
                         organizer_id=admin_user.id,
                         founded="2024-01-01 00:00:00"
                     )
                     db.add(group)
                     db.flush()
+                else:
+                    # Update existing group with latest member count and image if not set
+                    group_urlname = meetup_event.get("group_urlname")
+                    if group_urlname and (not group.image or group.members_count == 0):
+                        group_details = meetup_api.get_group_by_urlname(group_urlname)
+                        if group_details:
+                            if not group.image:
+                                group.image = group_details.get("image")
+                            if group.members_count == 0:
+                                group.members_count = group_details.get("members_count", 0)
+                            db.flush()
 
                 # Geocode if needed
                 event_latitude = meetup_event.get("latitude")
@@ -346,6 +364,9 @@ def import_events_by_geolocation(
                         )
                         if coords:
                             event_latitude, event_longitude = coords
+                        else:
+                            # Use search location as fallback
+                            event_latitude, event_longitude = latitude, longitude
 
                 # Prepare description
                 description = meetup_event.get("description", "")

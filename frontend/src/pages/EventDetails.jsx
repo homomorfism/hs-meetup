@@ -4,10 +4,12 @@ import EventCard from '../components/EventCard';
 import UserCard from '../components/UserCard';
 import EventMap from '../components/EventMap';
 import { eventsAPI, groupsAPI, usersAPI } from '../services/api';
+import { useAuth } from '../context/AuthContext';
 import styles from './EventDetails.module.css';
 
 export default function EventDetails() {
   const { id } = useParams();
+  const { isAuthenticated } = useAuth();
   const [event, setEvent] = useState(null);
   const [group, setGroup] = useState(null);
   const [organizer, setOrganizer] = useState(null);
@@ -15,6 +17,7 @@ export default function EventDetails() {
   const [attendees, setAttendees] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isAttending, setIsAttending] = useState(false);
 
   useEffect(() => {
     const fetchEventData = async () => {
@@ -77,6 +80,27 @@ export default function EventDetails() {
 
   const handleOrganizerImageError = (e) => {
     e.target.src = `https://i.pravatar.cc/150?u=${organizer?.id || 'default'}`;
+  };
+
+  const handleAttend = async () => {
+    if (!isAuthenticated) {
+      alert('Please log in to attend events');
+      return;
+    }
+
+    try {
+      await eventsAPI.attend(id);
+      setIsAttending(true);
+      // Update attendees count
+      setEvent(prev => ({
+        ...prev,
+        attendees_count: (prev.attendees_count || 0) + 1
+      }));
+      alert('Successfully registered for event!');
+    } catch (err) {
+      console.error('Error attending event:', err);
+      alert('Failed to register for event. Please try again.');
+    }
   };
 
   return (
@@ -146,7 +170,13 @@ export default function EventDetails() {
 
           <aside className={styles.sidebar}>
             <div className={styles.card}>
-              <button className={styles.attendBtn}>Attend</button>
+              <button
+                className={styles.attendBtn}
+                onClick={handleAttend}
+                disabled={isAttending}
+              >
+                {isAttending ? 'Attending' : 'Attend'}
+              </button>
               <div className={styles.attendInfo}>
                 <span>{event.attendees_count || 0} attending</span>
                 {event.max_attendees && (
