@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { categoriesAPI } from '../services/api';
 import styles from './Filters.module.css';
 
 export default function Filters({ filters, onChange }) {
@@ -8,7 +7,9 @@ export default function Filters({ filters, onChange }) {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const data = await categoriesAPI.getAll();
+        // Fetch actual event categories from events
+        const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api'}/events/categories`);
+        const data = await response.json();
         setCategories(data);
       } catch (err) {
         console.error('Error fetching categories:', err);
@@ -48,8 +49,8 @@ export default function Filters({ filters, onChange }) {
           className={styles.select}
         >
           <option value="">All categories</option>
-          {categories.map(cat => (
-            <option key={cat.id} value={cat.name}>{cat.name}</option>
+          {categories.map((cat, index) => (
+            <option key={index} value={cat.name}>{cat.name}</option>
           ))}
         </select>
       </div>

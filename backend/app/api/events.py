@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session, joinedload
 from typing import List, Optional
-from datetime import date
+from datetime import date, datetime, timedelta
 from ..database import get_db
 from ..models import Event, User, Group
 from ..schemas.event import Event as EventSchema, EventCreate, EventUpdate
@@ -10,6 +10,14 @@ from ..core.dependencies import get_current_active_user
 from ..services.geocoding import geocode_event_location
 
 router = APIRouter(prefix="/events", tags=["Events"])
+
+
+@router.get("/categories")
+def get_event_categories(db: Session = Depends(get_db)):
+    """Get unique categories from events"""
+    from sqlalchemy import distinct
+    categories = db.query(distinct(Event.category)).filter(Event.category != None).order_by(Event.category).all()
+    return [{"name": cat[0]} for cat in categories if cat[0]]
 
 
 def add_attendees_count(event):
@@ -29,7 +37,8 @@ def list_events(
     keyword: Optional[str] = None,
     location: Optional[str] = None,
     category: Optional[str] = None,
-    is_online: Optional[bool] = None,
+    date_filter: Optional[str] = None,
+    isOnline: Optional[str] = None,
     price: Optional[str] = None,
     db: Session = Depends(get_db)
 ):
@@ -44,16 +53,56 @@ def list_events(
         query = query.filter(Event.location_city.ilike(f"%{location}%"))
 
     if category:
-        query = query.filter(Event.category == category)
+        query = query.filter(Event.category.ilike(f"%{category}%"))
 
-    if is_online is not None:
-        query = query.filter(Event.is_online == is_online)
+    # Date filter
+    if date_filter:
+        today = date.today()
+        if date_filter == "today":
+            query = query.filter(Event.date == today)
+        elif date_filter == "tomorrow":
+            tomorrow = today + timedelta(days=1)
+            query = query.filter(Event.date == tomorrow)
+        elif date_filter == "this-week":
+            end_of_week = today + timedelta(days=(6 - today.weekday()))
+            query = query.filter(Event.date >= today, Event.date <= end_of_week)
+        elif date_filter == "this-weekend":
+            # Saturday and Sunday of current week
+            days_until_saturday = (5 - today.weekday()) % 7
+            saturday = today + timedelta(days=days_until_saturday)
+            sunday = saturday + timedelta(days=1)
+            query = query.filter(Event.date >= saturday, Event.date <= sunday)
+        elif date_filter == "next-week":
+            start_next_week = today + timedelta(days=(7 - today.weekday()))
+            end_next_week = start_next_week + timedelta(days=6)
+            query = query.filter(Event.date >= start_next_week, Event.date <= end_next_week)
+
+    if isOnline is not None:
+        # Handle string boolean values from frontend
+        if isOnline.lower() == "true":
+            query = query.filter(Event.is_online == True)
+        elif isOnline.lower() == "false":
+            query = query.filter(Event.is_online == False)
 
     if price:
         if price.lower() == "free":
-            query = query.filter(Event.price.ilike("free"))
+            # Check for "0.0", "0", "free", or null/empty
+            query = query.filter(
+                (Event.price == "0.0") |
+                (Event.price == "0") |
+                (Event.price.ilike("free")) |
+                (Event.price == None) |
+                (Event.price == "")
+            )
         elif price.lower() == "paid":
-            query = query.filter(~Event.price.ilike("free"))
+            # Anything that's not free
+            query = query.filter(
+                (Event.price != "0.0") &
+                (Event.price != "0") &
+                (~Event.price.ilike("free")) &
+                (Event.price != None) &
+                (Event.price != "")
+            )
 
     events = query.offset(skip).limit(limit).all()
 

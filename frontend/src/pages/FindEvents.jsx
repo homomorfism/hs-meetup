@@ -83,6 +83,7 @@ export default function FindEvents() {
         if (debouncedKeyword) apiFilters.keyword = debouncedKeyword;
         if (debouncedLocation) apiFilters.location = debouncedLocation;
         if (filters.category) apiFilters.category = filters.category;
+        if (filters.date) apiFilters.date_filter = filters.date;
         if (filters.isOnline === 'online') apiFilters.isOnline = 'true';
         if (filters.isOnline === 'in-person') apiFilters.isOnline = 'false';
         if (filters.price === 'free') apiFilters.price = 'free';
@@ -101,7 +102,7 @@ export default function FindEvents() {
     };
 
     fetchEvents();
-  }, [debouncedKeyword, debouncedLocation, filters.category, filters.isOnline, filters.price]);
+  }, [debouncedKeyword, debouncedLocation, filters.category, filters.date, filters.isOnline, filters.price]);
 
   // Function to record search history (called only on submit)
   const recordSearchHistory = async () => {

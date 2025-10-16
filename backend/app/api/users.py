@@ -13,7 +13,11 @@ router = APIRouter(prefix="/users", tags=["Users"])
 
 def add_attendees_count(event):
     """Helper function to add computed attendees_count to event object"""
-    event.attendees_count = len(event.attendees)
+    # Use external_attendees_count from Meetup API if available, otherwise count local attendees
+    if hasattr(event, 'external_attendees_count') and event.external_attendees_count:
+        event.attendees_count = event.external_attendees_count
+    else:
+        event.attendees_count = len(event.attendees)
     return event
 
 
@@ -78,8 +82,11 @@ def get_user_attending_events(user_id: int, db: Session = Depends(get_db)):
 
 @router.get("/{user_id}/groups", response_model=List[GroupSchema])
 def get_user_groups(user_id: int, db: Session = Depends(get_db)):
-    groups = db.query(Group).filter(Group.organizer_id == user_id).all()
-    return groups
+    """Get groups the user is a member of"""
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user.joined_groups
 
 
 @router.get("/{user_id}/friends", response_model=List[UserSchema])
