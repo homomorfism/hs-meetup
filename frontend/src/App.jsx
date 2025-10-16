@@ -13,6 +13,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import PersonalProfile from './pages/PersonalProfile';
 import Chat from './pages/Chat';
+import './styles/harbourspace-theme.css';
 import './App.css';
 
 function App() {

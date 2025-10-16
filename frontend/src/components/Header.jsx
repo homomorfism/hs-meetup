@@ -15,7 +15,7 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.container}>
         <Link to="/" className={styles.logo}>
-          Meetup
+          Harbour Community
         </Link>
         <nav className={styles.nav}>
           <Link to="/find" className={styles.navLink}>Find events</Link>

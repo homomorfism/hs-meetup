@@ -1,25 +1,27 @@
+/* Harbour.Space inspired Footer */
 .footer {
-  background: #1f1f1f;
-  color: white;
-  padding: 3rem 0 1rem;
+  background: var(--hs-primary);
+  color: var(--hs-white);
+  padding: 3rem 0 1.5rem;
   margin-top: 4rem;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 var(--hs-spacing-xl);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
+  gap: var(--hs-spacing-2xl);
 }
 
 .section h3 {
-  font-size: 0.875rem;
+  font-size: var(--hs-font-size-sm);
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 1rem;
-  color: #999;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--hs-spacing-lg);
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: var(--hs-font-weight-bold);
 }
 
 .section ul {
@@ -29,25 +31,28 @@
 }
 
 .section li {
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--hs-spacing-sm);
 }
 
 .section a {
-  color: white;
+  color: var(--hs-white);
   text-decoration: none;
-  transition: color 0.2s;
+  font-size: var(--hs-font-size-sm);
+  transition: all var(--hs-transition-fast);
+  display: inline-block;
 }
 
 .section a:hover {
-  color: #f65858;
+  color: var(--hs-accent);
+  transform: translateX(4px);
 }
 
 .copyright {
   grid-column: 1 / -1;
   text-align: center;
-  padding-top: 2rem;
-  border-top: 1px solid #333;
-  margin-top: 2rem;
-  color: #999;
-  font-size: 0.875rem;
+  padding-top: var(--hs-spacing-xl);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: var(--hs-spacing-xl);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: var(--hs-font-size-sm);
 }

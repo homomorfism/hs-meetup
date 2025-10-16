@@ -20,7 +20,7 @@ export default function Footer() {
           </ul>
         </div>
         <div className={styles.copyright}>
-          <p>&copy; 2025 Meetup Clone</p>
+          <p>&copy; 2025 Harbour Community</p>
         </div>
       </div>
     </footer>
